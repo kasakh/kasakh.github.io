@@ -1,37 +1,21 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/kasakh/kasakh.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+# Assumptions in Linear Regression
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+*This is post explaining what are the popular assumptions involved in Linear Regression and their importance*
 
-### Markdown
+Let me start off by asking one basic question. 
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Most people usually think that 'output' of Linear Regression is only valid when the Linear, Independent, Normal and Constant assumptions are satisfied on the error terms. This is a post explaining what if those assumptions are violated.  
 
-```markdown
-Syntax highlighted code block
+Let us assume that we have our entire population of univariate datapoints $(X_1, Y)$ with us. If one were to minimize square error on this data and get the parameters $b_0,b_1$ where $Y = b_0 + b_1*X_1$ (1), but the error terms do not follow the above mentioned assumptions, what next?
 
-# Header 1
-## Header 2
-### Header 3
+Actually, you can safely use this model for predicting relationship between $X_1 & Y$. There is no need to do any F-test or T-test. In fact, only to perform the F-test or t-test, we require the above LINC assumptions. The whole point of testing comes when we are trying to estimate the relationship $b_1$ using the sample data available. 
 
-- Bulleted
-- List
+When we use the sample data and perform OLS, we get an estimate of $b_1$ which is usually denoted as $\beta_1$. The first assumption in LINC, which is Linear, states that $E(\epsilon)=0$, which means that $\beta_1$ is an unbiased estimator of $b_1$. Why?
 
-1. Numbered
-2. List
+$Y = \beta_0 +\beta_1 * X_1 +\epsilon$ is our regression equation we get from the sample. Now if $E(\epsilon)=0$, this means that $\hat Y = b_0 + b_1*X_1$. 
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
-```
+This is exactly what is represented by equation (1). What this means that for a given value of $X_1$, there could be multiple values of $Y$ and our equation predicts that mean of these $Y$'s which is $\hat Y$. 
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/kasakh/kasakh.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Having said that, the concept of $r^2$ does not depend on these LINC assumptions. So, we can still say what proportion of variation in the dependent variable, within in the sample data, is being explained our regression equation. 
