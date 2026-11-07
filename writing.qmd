@@ -4,7 +4,7 @@ description: "Notes on probability, statistics, optimization, and machine learni
 toc: false
 ---
 
-I use these notes to work through mathematical ideas from their optimization problem to the final derivation. The pages support TeX equations, cross references, citations, code, figures, and executable notebooks.
+I use these notes to work through mathematical ideas from the problem they solve to the final derivation. Every page is native to this site and supports TeX equations, so nothing depends on an external notebook viewer.
 
 ::: {.note-grid}
 ::: {.note-card}
@@ -12,7 +12,7 @@ I use these notes to work through mathematical ideas from their optimization pro
 
 ### [Reparameterization gradients](writing/reparameterization-gradients.qmd)
 
-The parameter of interest appears inside a sampling distribution. Two unbiased estimators expose why a change of variables can reduce gradient variance.
+The parameter of interest sits inside a sampling distribution. Two unbiased estimators expose why a change of variables can reduce gradient variance.
 :::
 
 ::: {.note-card}
@@ -20,14 +20,30 @@ The parameter of interest appears inside a sampling distribution. Two unbiased e
 
 ### [Why optimize log likelihood?](writing/log-likelihood.qmd)
 
-A likelihood product and its log have the same maximizer. The logarithm gives additive derivatives and stable numerical computation.
+A likelihood product and its logarithm share a maximizer. The logarithm gives additive derivatives and stable numerical computation.
+:::
+
+::: {.note-card}
+<p class="note-meta">Reinforcement learning</p>
+
+### [Convergence of policy iteration](writing/policy-iteration.qmd)
+
+Why the values produced by policy iteration increase at every step and do not get stuck at a local optimum.
+:::
+
+::: {.note-card}
+<p class="note-meta">Regression</p>
+
+### [Assumptions in linear regression](writing/linear-regression-assumptions.qmd)
+
+What the linearity, independence, normality, and constant-variance assumptions are for, and what still holds when they are violated.
+:::
+
+::: {.note-card}
+<p class="note-meta">Regression</p>
+
+### [Why the residual variance estimator is unbiased](writing/mse-unbiased.qmd)
+
+A matrix derivation that the residual sum of squares divided by n minus p minus 1 is an unbiased estimator of the error variance.
 :::
 :::
-
-## Earlier notebooks
-
-These notebooks are preserved while their notation and explanations are revised for the new site.
-
-* [Convergence of policy iteration](https://nbviewer.org/github/kasakh/kasakh.github.io/blob/master/Proof%20of%20Policy%20Iteration%20algorithm.ipynb)
-* [Assumptions in linear regression](https://nbviewer.org/github/kasakh/kasakh.github.io/blob/master/linear_regression.ipynb)
-* [Estimating residual variance in linear regression](https://nbviewer.org/github/kasakh/kasakh.github.io/blob/master/MSE%20is%20unbiased%20proof%20.ipynb)

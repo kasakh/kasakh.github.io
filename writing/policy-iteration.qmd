@@ -1,0 +1,60 @@
+---
+title: "Convergence of Policy Iteration"
+description: "Why the values produced by policy iteration increase at every step and do not get stuck at a local optimum."
+categories: [Reinforcement learning, Dynamic programming]
+toc: true
+---
+
+First let's see why the policy iteration algorithm works. It has two steps.
+
+## Policy evaluation step
+
+$v_n = r_{d_n} + \gamma P_{d_n}v_n$ is the general vectorial form of the system of linear equations.
+
+Here, the terms $r_{d_n}, P_{d_n}$ are the immediate rewards and the corresponding rows of the transition matrix. These terms depend on the policy $\Pi_n$. Solving the above system of equations gives the values $v_n$.
+
+## Policy improvement step
+
+Assume that we were able to find a new policy $\Pi_{n+1}$ such that
+
+$$
+\begin{aligned}
+r_{d_{n+1}} + \gamma P_{d_{n+1}}v_n & \ge r_{d_n} + \gamma P_{d_n}v_n \\
+\implies r_{d_{n+1}} & \ge [I - \gamma P_{d_{n+1}}]v_n \quad \text{(call this equation 1)}
+\end{aligned}
+$$
+
+Now, based on the new policy $\Pi_{n+1}$, we can find
+
+$$
+v_{n+1} = r_{d_{n+1}} + \gamma P_{d_{n+1}}v_{n+1} \quad \text{(call this equation 2)}
+$$
+
+We are going to show that $v_{n+1} \ge v_n$, that is, for all the states the newly chosen policy $\Pi_{n+1}$ gives a value at least as high as the previous policy $\Pi_n$.
+
+## Proof
+
+From equation 2, we have
+
+$$[I - \gamma P_{d_{n+1}}]v_{n+1} = r_{d_{n+1}}$$
+
+From equations 1 and 2, we have
+
+$$v_{n+1} \ge v_n$$
+
+So the values increase monotonically with each iteration. This is the key to understanding why policy iteration does not get stuck at a local maximum.
+
+A policy is a mapping over the state-action space. At every policy iteration step we look for at least one state-action pair that differs between $\Pi_{n+1}$ and $\Pi_n$ and check whether $r_{d_{n+1}} + \gamma P_{d_{n+1}}v_n \ge r_{d_n} + \gamma P_{d_n}v_n$. Only if the condition holds do we solve the new system of linear equations.
+
+Assume $\Pi^{*}$ and $\Pi^{\#}$ are the global and local optimum respectively, so that $v_{*} \ge v_{\#}$. Suppose the algorithm is stuck at the local optimum. Then the policy improvement step will not stop at the local optimum state-action space $\Pi^{\#}$, because there exists at least one state-action pair in $\Pi^{*}$ that differs from $\Pi^{\#}$ and yields a higher value of $v_{*}$ compared to $v_{\#}$. In other words, assuming $[I-\gamma P_{d_*}]$ is positive,
+
+$$
+\begin{aligned}
+[I-\gamma P_{d_*}]v_* & \ge [I-\gamma P_{d_*}]v_{\#} \\
+\implies r_{d_*} & \ge [I-\gamma P_{d_*}]v_{\#} \\
+\implies r_{d_*} + \gamma P_{d_*}v_{\#} & \ge v_{\#} \\
+\implies r_{d_*} + \gamma P_{d_*}v_{\#} & \ge r_{d_\#} + \gamma P_{d_\#}v_\#
+\end{aligned}
+$$
+
+Hence policy iteration does not stop at a local optimum.

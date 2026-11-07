@@ -49,67 +49,88 @@
     "text": "6 References\n\nDiederik P. Kingma and Max Welling. Auto-Encoding Variational Bayes. 2014.\nRonald J. Williams. Simple Statistical Gradient-Following Algorithms for Connectionist Reinforcement Learning. 1992."
   },
   {
-    "objectID": "writing.html",
-    "href": "writing.html",
-    "title": "Writing",
+    "objectID": "writing/mse-unbiased.html",
+    "href": "writing/mse-unbiased.html",
+    "title": "Why the Residual Variance Estimator is Unbiased",
     "section": "",
-    "text": "I use these notes to work through mathematical ideas from their optimization problem to the final derivation. The pages support TeX equations, cross references, citations, code, figures, and executable notebooks."
+    "text": "Under the usual notation,\n\\[Y = X\\beta + \\epsilon\\]\nwhere \\(X\\) is an \\(n \\times (p+1)\\) matrix, that is, \\(n\\) rows of datapoints and \\(p+1\\) variables, and\n\\[\\hat Y = X\\hat\\beta, \\qquad \\hat\\beta = (X'X)^{-1}X'Y \\implies \\hat\\beta' = Y'X(X'X)^{-1}.\\]\nExpanding the residual sum of squares,\n\\[\n\\begin{aligned}\n\\Sigma (Y_i - \\hat Y_i)^2 & = (Y - \\hat Y)'(Y - \\hat Y) \\\\\n& = \\big(X(\\beta - \\hat \\beta) + \\epsilon\\big)'\\big(X(\\beta - \\hat \\beta) + \\epsilon\\big)\\\\\n& = \\underbrace{(\\beta - \\hat \\beta)'X'X(\\beta - \\hat \\beta)}_{\\text{term 1}} + \\underbrace{\\epsilon'X (\\beta - \\hat \\beta)}_{\\text{term 2}} + \\underbrace{(\\beta - \\hat \\beta)'X'\\epsilon}_{\\text{term 3}} + \\epsilon'\\epsilon.\n\\end{aligned}\n\\]\nSimplifying the individual terms.\nTerm 1:\n\\[\n\\begin{aligned}\n(\\beta - \\hat \\beta)'X'X(\\beta - \\hat \\beta) &= (\\beta - (X'X)^{-1}X'Y)'X'X(\\beta - (X'X)^{-1}X'Y)\\\\\n&= (\\beta' - Y'X(X'X)^{-1})X'X(\\beta - (X'X)^{-1}X'Y) \\\\\n&= \\beta'X'X\\beta - Y'X\\beta - \\beta'(X'X)(X'X)^{-1}X'Y + Y'X(X'X)^{-1}X'Y \\\\\n&= \\beta'X'X\\beta - (\\beta'X' + \\epsilon')X\\beta - \\beta'(X'X)(X'X)^{-1}X'Y \\\\\n&\\quad + (\\beta'X' + \\epsilon')X(X'X)^{-1}X'Y \\qquad (\\text{substituting } Y') \\\\\n&= - \\epsilon'X\\beta + \\epsilon'X(X'X)^{-1}X'Y \\qquad (\\text{some terms cancel}) \\\\\n&= - \\epsilon'X\\beta + \\epsilon'X(X'X)^{-1}X'(X\\beta + \\epsilon) \\qquad (\\text{substituting } Y) \\\\\n&= \\epsilon'X(X'X)^{-1}X'\\epsilon.\n\\end{aligned}\n\\]\nTerm 2:\n\\[\n\\begin{aligned}\n\\epsilon'X (\\beta - \\hat \\beta) &= \\epsilon'X(\\beta - (X'X)^{-1}X'Y)\\\\\n&= \\epsilon'X(\\beta - (X'X)^{-1}X'(X\\beta+\\epsilon)) \\qquad (\\text{substituting } Y) \\\\\n&= -\\epsilon'X(X'X)^{-1}X'\\epsilon.\n\\end{aligned}\n\\]\nTerm 3 is the same as term 2, namely \\(-\\epsilon'X(X'X)^{-1}X'\\epsilon\\). Collecting the terms,\n\\[\n\\begin{aligned}\n\\Sigma (Y_i - \\hat Y_i)^2 &= \\epsilon'X(X'X)^{-1}X'\\epsilon - \\epsilon'X(X'X)^{-1}X'\\epsilon - \\epsilon'X(X'X)^{-1}X'\\epsilon + \\epsilon'\\epsilon\\\\\n&= \\epsilon'\\epsilon - \\epsilon'X(X'X)^{-1}X'\\epsilon\\\\\n&= \\epsilon'\\epsilon - \\epsilon'P\\epsilon,\n\\end{aligned}\n\\]\nwhere \\(P\\) is the projection matrix, which is symmetric and idempotent.\nNow take the expectation,\n\\[\n\\begin{aligned}\nE\\big[\\Sigma (Y_i - \\hat Y_i)^2\\big] &= E(\\epsilon'\\epsilon - \\epsilon'P\\epsilon)\\\\\n&= E(\\epsilon'\\epsilon) - E(\\epsilon'P\\epsilon)\\\\\n&= n\\sigma^2 - \\sigma^2\\,\\mathrm{trace}(P)\\\\\n&= (n-(p+1))\\sigma^2,\n\\end{aligned}\n\\]\nusing the result below that \\(\\mathrm{trace}(P) = p+1\\). Therefore\n\\[\\frac{\\Sigma (Y_i - \\hat Y_i)^2}{\\,n-(p+1)\\,}\\]\nis an unbiased estimator of \\(\\sigma^2\\)."
   },
   {
-    "objectID": "writing.html#earlier-notebooks",
-    "href": "writing.html#earlier-notebooks",
-    "title": "Writing",
-    "section": "Earlier notebooks",
-    "text": "Earlier notebooks\nThese notebooks are preserved while their notation and explanations are revised for the new site.\n\nConvergence of policy iteration\nAssumptions in linear regression\nEstimating residual variance in linear regression"
+    "objectID": "writing/mse-unbiased.html#proof-that-the-trace-of-p-equals-p-plus-1",
+    "href": "writing/mse-unbiased.html#proof-that-the-trace-of-p-equals-p-plus-1",
+    "title": "Why the Residual Variance Estimator is Unbiased",
+    "section": "Proof that the trace of P equals p plus 1",
+    "text": "Proof that the trace of P equals p plus 1\nThe trace operator is commutative, \\(\\mathrm{trace}(AB)= \\mathrm{trace}(BA)\\). Therefore\n\\[\\mathrm{trace}\\big(\\underbrace{X}_{A}\\;\\underbrace{(X'X)^{-1}X'}_{B}\\big) = \\mathrm{trace}\\big((X'X)^{-1}X'X\\big) = p+1.\\]"
   },
   {
-    "objectID": "publications.html",
-    "href": "publications.html",
-    "title": "Publications",
+    "objectID": "writing/linear-regression-assumptions.html",
+    "href": "writing/linear-regression-assumptions.html",
+    "title": "Assumptions in Linear Regression",
     "section": "",
-    "text": "Each entry links to a public paper and, when available, its code or project page."
+    "text": "A post explaining the popular assumptions involved in linear regression and their importance.\nMost people usually think that the output of linear regression is only valid when the Linear, Independent, Normal, and Constant (LINC) assumptions are satisfied on the error terms. This is a post explaining what happens if those assumptions are violated.\nLet me start by asking one basic question. Suppose we have our entire population of univariate datapoints \\((X_1, Y)\\). If one were to minimize squared error on this data and get the parameters \\(b_0, b_1\\) where\n\\[Y = b_0 + b_1 X_1 \\quad \\text{(1)}\\]\nbut the error terms do not follow the assumptions above, what next?\nYou can safely use this model for predicting the relationship between \\(X_1\\) and \\(Y\\). There is no need to do any F-test or t-test. In fact, the LINC assumptions are needed only to perform the F-test or the t-test. The whole point of testing arises when we try to estimate the relationship \\(b_1\\) using the sample data available.\nWhen we use the sample data and perform ordinary least squares, we get an estimate of \\(b_1\\) usually denoted \\(\\beta_1\\). The first assumption in LINC, Linear, states that \\(E(\\epsilon)=0\\), which means that \\(\\beta_1\\) is an unbiased estimator of \\(b_1\\). Why?\n\\(Y = \\beta_0 + \\beta_1 X_1 + \\epsilon\\) is the regression equation we get from the sample. If \\(E(\\epsilon)=0\\), then \\(\\hat Y = b_0 + b_1 X_1\\), which is exactly equation (1). This means that for a given value of \\(X_1\\) there could be multiple values of \\(Y\\), and our equation predicts the mean of these values, \\(\\hat Y\\).\nHaving said that, the concept of \\(r^2\\) does not depend on these LINC assumptions. So we can still say what proportion of variation in the dependent variable, within the sample data, is explained by our regression equation."
   },
   {
-    "objectID": "publications.html#preprints",
-    "href": "publications.html#preprints",
-    "title": "Publications",
-    "section": "Preprints",
-    "text": "Preprints\n\n\nPreprint, under review\n\n\nCopRoute: Dependence-Aware Conformal Routing for Language Models\nSiva Rajesh Kasa, Santhosh Kumar Kasa, Karan Gupta. Joint first authors.\n\nPaper\n\n\n\n\n\nPreprint, under review\n\n\nSatisDive: Traversing the Satisfaction-Diversity Frontier in Text-to-Image Diffusion\nKevin Zhai, Siva Rajesh Kasa, et al.\n\nPaper Code\n\n\n\n\n\nPreprint, under review\n\n\nCorrecting the Optimizer’s Curse in World-Model Planning\nSiva Rajesh Kasa"
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "My research develops methods for language model inference, text classification, privacy, search, and statistical learning. I work on both mathematical questions and systems that are evaluated under production constraints."
   },
   {
-    "objectID": "publications.html#section",
-    "href": "publications.html#section",
-    "title": "Publications",
-    "section": "2026",
-    "text": "2026\n\n\nNeurIPS 2026 and SPGIM workshop at ICML 2026\n\n\nFast-dLLM++: Fréchet Profile Decoding for Faster Diffusion LLM Inference\nSiva Rajesh Kasa et al.\n\nPaper Code Project page\n\n\n\n\n\nTMLR 2026 and Regulatable ML workshop at NeurIPS 2025\n\n\nThe Hidden Cost of Modeling P(X): Membership Inference Attacks in Generative Text Classifiers\nOwais Makroo, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper Code\n\n\n\n\n\nAISTATS 2026 and Efficient Reasoning workshop at NeurIPS 2025\n\n\nDIVERSED: Relaxed Speculative Decoding via Dynamic Ensemble Verification\nZiyi Wang, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper Code HuggingFace contribution\n\n\n\n\n\nCombining Theory and Benchmarks workshop at ICML 2026\n\n\nGenerative vs Discriminative? Revisiting the Shortcut Learning Debate in Text Classification\nSiva Rajesh Kasa et al.\n\nPaper Project page"
+    "objectID": "research.html#language-model-inference",
+    "href": "research.html#language-model-inference",
+    "title": "Research",
+    "section": "Language model inference",
+    "text": "Language model inference\nI study how to reduce inference time while preserving model performance. My work covers autoregressive language models and diffusion language models.\n\nRelaxed speculative decoding\nStandard speculative decoding accepts a draft token only when a target model verifies it under an exact acceptance rule. Relaxed speculative decoding allows controlled disagreement between the draft and target models, increasing the number of accepted tokens while holding task performance fixed. The implementation was merged into HuggingFace transformers through the assistant_ensemble_weight generation argument.\nPaper · Code · HuggingFace contribution\n\n\nFréchet profile decoding\nFréchet profile decoding accelerates diffusion language model inference. It generalizes factor based schedules and controls when token positions are updated during iterative generation.\nPaper · Code · Project page\n\n\nConformal routing\nCopRoute studies how to route language model requests while accounting for dependence in model outcomes. It uses conformal methods to control routing decisions without assuming independent errors.\nPaper"
   },
   {
-    "objectID": "publications.html#section-1",
-    "href": "publications.html#section-1",
-    "title": "Publications",
-    "section": "2025",
-    "text": "2025\n\n\nEMNLP 2025, Outstanding Paper Award\n\n\nGenerative or Discriminative? Revisiting Text Classification in the Era of Transformers\nSiva Rajesh Kasa et al.\n\nPaper Code\n\n\n\n\n\nAISTATS 2025\n\n\nExposing Privacy Gaps: Membership Inference Attack on Preference Data for LLM Alignment\nQizhang Feng, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper\n\n\n\n\n\nWWW 2025, short paper\n\n\nLeveraging Structural Information in Tree Ensembles for Table Representation Learning\nNikhil Pattisapu, Siva Rajesh Kasa, et al.\n\nPaper Project page"
+    "objectID": "research.html#classification-privacy",
+    "href": "research.html#classification-privacy",
+    "title": "Research",
+    "section": "Classification and privacy",
+    "text": "Classification and privacy\nI study when generative and discriminative text classifiers behave differently, how shortcuts and distribution shifts affect their predictions, and what privacy risks follow from modeling the input distribution.\nThis work includes an EMNLP 2025 Outstanding Paper on generative and discriminative text classification, studies of concept shift and ordinal labels, and membership inference attacks on generative classifiers and preference data.\nGenerative and discriminative classifiers · Privacy in generative classifiers · Privacy in preference data"
   },
   {
-    "objectID": "publications.html#section-2",
-    "href": "publications.html#section-2",
-    "title": "Publications",
-    "section": "2024",
-    "text": "2024\n\n\nFindings of ACL 2024\n\n\nExploring Ordinality in Text Classification: A Comparative Study of Explicit and Implicit Techniques\nSiva Rajesh Kasa et al.\n\nPaper\n\n\n\n\n\nKDD 2024, Applied Data Science Track\n\n\nTackling Concept Shift in Text Classification using Entailment-style Modeling\nSumegh Roychowdhury, Karan Gupta, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper\n\n\n\n\n\nResponsible Language Modeling workshop at AAAI 2024\n\n\nHow Robust Are LLMs to In-Context Majority Label Bias?\nKaran Gupta, Sumegh Roychowdhury, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper Project page"
+    "objectID": "research.html#search-recommendation",
+    "href": "research.html#search-recommendation",
+    "title": "Research",
+    "section": "Search and recommendation",
+    "text": "Search and recommendation\nAt Amazon, I design and deploy text generation and classification systems for search relevance and recommendation. My work covers multimodal calibration, long tail ranking under sparse behavioral feedback, counterfactual ranking analysis, and experimentation infrastructure used by search teams."
   },
   {
-    "objectID": "publications.html#earlier-work",
-    "href": "publications.html#earlier-work",
-    "title": "Publications",
-    "section": "Earlier work",
-    "text": "Earlier work\n\n\nScientific Reports 2023\n\n\nAvoiding Inferior Clusterings with Misspecified Gaussian Mixture Models\nSiva Rajesh Kasa, Vaibhav Rajan\n\nPaper\n\n\n\n\n\nICIS 2021\n\n\nDependency Modeling with Copulas in Multi-Armed Bandits\nSiva Rajesh Kasa, Vaibhav Rajan\n\nPaper\n\n\n\n\n\nSN Computer Science 2021\n\n\nA Statistical Test for Detecting Dependency Breakdown in Financial Markets\nSiva Rajesh Kasa, Malay Bhattacharyya\n\nPaper\n\n\n\n\n\nEconometrics and Statistics\n\n\nImproved Inference of Gaussian Mixture Copula Model for Clustering and Reproducibility Analysis using Automatic Differentiation\nSiva Rajesh Kasa, Vaibhav Rajan\n\nPaper\n\n\n\n\n\nBioinformatics 2020\n\n\nGaussian Mixture Copulas for High-Dimensional Clustering and Dependency-Based Subtyping\nSiva Rajesh Kasa, Sakyajit Bhattacharya, Vaibhav Rajan\n\nPaper Project page"
+    "objectID": "research.html#statistical-learning",
+    "href": "research.html#statistical-learning",
+    "title": "Research",
+    "section": "Statistical learning",
+    "text": "Statistical learning\nMy doctoral research studied dependence modeling with mixture models and copulas. The resulting work covers high dimensional clustering, model misspecification, reproducibility analysis, structural change in financial markets, and dependence in multi armed bandits.\nGaussian mixture copulas · Misspecified mixture models · Copulas in multi armed bandits"
   },
   {
-    "objectID": "publications.html#software-paper",
-    "href": "publications.html#software-paper",
-    "title": "Publications",
-    "section": "Software paper",
-    "text": "Software paper\n\n\narXiv preprint\n\n\nMixture-Models: A One-Stop Python Library for Model-Based Clustering using Various Mixture Models\nSiva Rajesh Kasa, Hu Yijie, Santhosh Kumar Kasa, Vaibhav Rajan\n\nPaper Code Project page"
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Siva Rajesh Kasa",
+    "section": "",
+    "text": "Applied machine learning researcher\n\n\n\n\nI study inference acceleration for language models, reliable text classification, machine learning privacy, and statistical learning. I am a Senior Applied Scientist at Amazon in Seattle.\n\n\nResearch Mathematical notes Curriculum vitae"
+  },
+  {
+    "objectID": "index.html#research",
+    "href": "index.html#research",
+    "title": "Siva Rajesh Kasa",
+    "section": "Research",
+    "text": "Research\n\n\n\nLanguage model inference\n\n\nFaster generation at matched performance\nMethods for accelerating autoregressive and diffusion language models, including relaxed speculative decoding and Fréchet profile decoding.\nRead about this research\n\n\n\n\nClassification and privacy\n\n\nHow modeling choices change behavior\nWork on generative and discriminative classification, shortcut learning, concept shift, calibration, and membership inference attacks.\nRead about this research\n\n\n\n\nSearch and recommendation\n\n\nLearning under sparse feedback\nProduction research on search relevance, multimodal calibration, long tail ranking, counterfactual analysis, and experimentation.\nRead about this research\n\n\n\n\nStatistical learning\n\n\nDependence beyond correlation\nMixture models, copulas, high dimensional clustering, time series, and sequential decision making.\nRead about this research\n\n\n\n\n\nFrom the notebook\n\nFor a differentiable transformation g_θ of noise ε whose distribution does not depend on θ, the pathwise gradient is\n\\[\n\\nabla_\\theta\n\\mathbb{E}_{\\varepsilon \\sim p(\\varepsilon)}\n\\left[f\\!\\left(g_\\theta(\\varepsilon)\\right)\\right]\n=\n\\mathbb{E}_{\\varepsilon \\sim p(\\varepsilon)}\n\\left[\\nabla_\\theta f\\!\\left(g_\\theta(\\varepsilon)\\right)\\right].\n\\]\nRead the note on reparameterization gradients"
+  },
+  {
+    "objectID": "index.html#selected-publications",
+    "href": "index.html#selected-publications",
+    "title": "Siva Rajesh Kasa",
+    "section": "Selected publications",
+    "text": "Selected publications\n\n\nNeurIPS 2026\n\n\nFréchet Profile Decoding for Faster Diffusion Language Model Inference\nSiva Rajesh Kasa*, Yasong Dai, Sumit Negi, Hongdong Li\n\nPaper Code Project page\n\n\n\n\n\nEMNLP 2025, Outstanding Paper\n\n\nGenerative or Discriminative? Revisiting Text Classification in the Era of Transformers\nSiva Rajesh Kasa*, Karan Gupta, Sumegh Roychowdhury, Ashutosh Kumar, Yaswanth Biruduraju, Santhosh Kumar Kasa, Nikhil Priyatam Pattisapu, Arindam Bhattacharya, Shailendra Agarwal, Vijay Huddar\n\nPaper Code\n\n\n\n\n\nAISTATS 2026\n\n\nRelaxed Speculative Decoding via Dynamic Ensemble Verification\nZiyi Wang, Siva Rajesh Kasa, Ankith M S, Santhosh Kumar Kasa, Jiaru Zou, Sumit Negi, Ruqi Zhang, Nan Jiang, Qifan Song\n\nPaper Code HuggingFace contribution\n\n\n\n\n\nPreprint\n\n\nCopRoute: Dependence Aware Conformal Routing for Language Models\nSiva Rajesh Kasa, Santhosh Kumar Kasa, Karan Gupta\n\nPaper\n\n\n\nView all publications"
+  },
+  {
+    "objectID": "index.html#writing",
+    "href": "index.html#writing",
+    "title": "Siva Rajesh Kasa",
+    "section": "Writing",
+    "text": "Writing\nI use the writing section for self contained notes on probability, statistics, optimization, and machine learning. Every page is native to this site and renders TeX equations directly.\n\n\n\nGradient estimation\n\n\nReparameterization gradients\nTwo unbiased gradient estimators for expectations, with an exact variance comparison in a Gaussian example.\nRead the note\n\n\n\n\nStatistical estimation\n\n\nWhy optimize log likelihood?\nThe optimization, algebraic, and numerical reasons for replacing a likelihood product with a sum of log densities.\nRead the note"
   },
   {
     "objectID": "about.html",
@@ -154,67 +175,60 @@
     "text": "Contact\nEmail: firstname.lastname@gmail.com, using my first and last name in lowercase with no spaces Google Scholar: Siva Rajesh Kasa GitHub: kasakh Curriculum vitae: PDF"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Siva Rajesh Kasa",
+    "objectID": "publications.html",
+    "href": "publications.html",
+    "title": "Publications",
     "section": "",
-    "text": "Applied machine learning researcher\n\n\n\n\nI study inference acceleration for language models, reliable text classification, machine learning privacy, and statistical learning. I am a Senior Applied Scientist at Amazon in Seattle.\n\n\nResearch Mathematical notes Curriculum vitae"
+    "text": "All authors are listed in order. A superscript asterisk (*) marks a first author, and joint first authors are each asterisked. My name is in bold. Each entry links to a public paper and, when available, its code or project page."
   },
   {
-    "objectID": "index.html#research",
-    "href": "index.html#research",
-    "title": "Siva Rajesh Kasa",
-    "section": "Research",
-    "text": "Research\n\n\n\nLanguage model inference\n\n\nFaster generation at matched performance\nMethods for accelerating autoregressive and diffusion language models, including relaxed speculative decoding and Fréchet profile decoding.\nRead about this research\n\n\n\n\nClassification and privacy\n\n\nHow modeling choices change behavior\nWork on generative and discriminative classification, shortcut learning, concept shift, calibration, and membership inference attacks.\nRead about this research\n\n\n\n\nSearch and recommendation\n\n\nLearning under sparse feedback\nProduction research on search relevance, multimodal calibration, long tail ranking, counterfactual analysis, and experimentation.\nRead about this research\n\n\n\n\nStatistical learning\n\n\nDependence beyond correlation\nMixture models, copulas, high dimensional clustering, time series, and sequential decision making.\nRead about this research\n\n\n\n\n\nFrom the notebook\n\nFor a differentiable transformation g_θ of noise ε whose distribution does not depend on θ, the pathwise gradient is\n\\[\n\\nabla_\\theta\n\\mathbb{E}_{\\varepsilon \\sim p(\\varepsilon)}\n\\left[f\\!\\left(g_\\theta(\\varepsilon)\\right)\\right]\n=\n\\mathbb{E}_{\\varepsilon \\sim p(\\varepsilon)}\n\\left[\\nabla_\\theta f\\!\\left(g_\\theta(\\varepsilon)\\right)\\right].\n\\]\nRead the note on reparameterization gradients"
+    "objectID": "publications.html#preprints",
+    "href": "publications.html#preprints",
+    "title": "Publications",
+    "section": "Preprints",
+    "text": "Preprints\n\n\nPreprint, under review\n\n\nCopRoute: Dependence-Aware Conformal Routing for Language Models\nSiva Rajesh Kasa, Santhosh Kumar Kasa, Karan Gupta\n\nPaper\n\n\n\n\n\nPreprint, under review\n\n\nSatisDive: Traversing the Satisfaction-Diversity Frontier in Text-to-Image Diffusion\nKevin Zhai*, Siva Rajesh Kasa, Soumya Roy, Sumit Negi, Mubarak Shah\n\nPaper Code\n\n\n\n\n\nPreprint, under review\n\n\nCorrecting the Optimizer’s Curse in World-Model Planning\nSiva Rajesh Kasa*"
   },
   {
-    "objectID": "index.html#selected-publications",
-    "href": "index.html#selected-publications",
-    "title": "Siva Rajesh Kasa",
-    "section": "Selected publications",
-    "text": "Selected publications\n\n\nNeurIPS 2026\n\n\nFréchet Profile Decoding for Faster Diffusion Language Model Inference\nSiva Rajesh Kasa et al.\n\nPaper Code Project page\n\n\n\n\n\nEMNLP 2025, Outstanding Paper\n\n\nGenerative or Discriminative? Revisiting Text Classification in the Era of Transformers\nSiva Rajesh Kasa et al.\n\nPaper Code\n\n\n\n\n\nAISTATS 2026\n\n\nRelaxed Speculative Decoding via Dynamic Ensemble Verification\nZiyi Wang, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper Code HuggingFace contribution\n\n\n\n\n\nPreprint\n\n\nCopRoute: Dependence Aware Conformal Routing for Language Models\nSiva Rajesh Kasa, Santhosh Kumar Kasa, Karan Gupta. Joint first authors.\n\nPaper\n\n\n\nView all publications"
+    "objectID": "publications.html#section",
+    "href": "publications.html#section",
+    "title": "Publications",
+    "section": "2026",
+    "text": "2026\n\n\nNeurIPS 2026 and SPGIM workshop at ICML 2026\n\n\nFast-dLLM++: Fréchet Profile Decoding for Faster Diffusion LLM Inference\nSiva Rajesh Kasa*, Yasong Dai, Sumit Negi, Hongdong Li\n\nPaper Code Project page\n\n\n\n\n\nTMLR 2026 and Regulatable ML workshop at NeurIPS 2025\n\n\nThe Hidden Cost of Modeling P(X): Vulnerability to Membership Inference Attacks in Generative Text Classifiers\nOwais Makroo, Siva Rajesh Kasa, Sumegh Roychowdhury, Karan Gupta, Nikhil Pattisapu, Santhosh Kasa, Sumit Negi\n\nPaper Code\n\n\n\n\n\nAISTATS 2026 and Efficient Reasoning workshop at NeurIPS 2025\n\n\nDIVERSED: Relaxed Speculative Decoding via Dynamic Ensemble Verification\nZiyi Wang, Siva Rajesh Kasa, Ankith M S, Santhosh Kumar Kasa, Jiaru Zou, Sumit Negi, Ruqi Zhang, Nan Jiang, Qifan Song\n\nPaper Code HuggingFace contribution\n\n\n\n\n\nCombining Theory and Benchmarks workshop at ICML 2026\n\n\nGenerative vs Discriminative? Revisiting the Shortcut Learning Debate in Text Classification\nSiva Rajesh Kasa*, Karthik Raavi, Nikhil Pattisapu, Ashutosh Kumar, Yaswanth Biruduraju, Santhosh Kasa, Sumegh Roychowdhury, Ankith M S, Sumit Negi\n\nPaper Project page"
   },
   {
-    "objectID": "index.html#writing",
-    "href": "index.html#writing",
-    "title": "Siva Rajesh Kasa",
-    "section": "Writing",
-    "text": "Writing\nI use the writing section for self contained notes on probability, statistics, optimization, and machine learning. The pages support TeX equations, theorem style blocks, citations, code, and executable notebooks.\n\n\n\nGradient estimation\n\n\nReparameterization gradients\nTwo unbiased gradient estimators for expectations, with an exact variance comparison in a Gaussian example.\nRead the note\n\n\n\n\nStatistical estimation\n\n\nWhy optimize log likelihood?\nThe optimization, algebraic, and numerical reasons for replacing a likelihood product with a sum of log densities.\nRead the note"
+    "objectID": "publications.html#section-1",
+    "href": "publications.html#section-1",
+    "title": "Publications",
+    "section": "2025",
+    "text": "2025\n\n\nEMNLP 2025, Outstanding Paper Award\n\n\nGenerative or Discriminative? Revisiting Text Classification in the Era of Transformers\nSiva Rajesh Kasa*, Karan Gupta, Sumegh Roychowdhury, Ashutosh Kumar, Yaswanth Biruduraju, Santhosh Kumar Kasa, Nikhil Priyatam Pattisapu, Arindam Bhattacharya, Shailendra Agarwal, Vijay Huddar\n\nPaper Code\n\n\n\n\n\nAISTATS 2025\n\n\nExposing Privacy Gaps: Membership Inference Attack on Preference Data for LLM Alignment\nQizhang Feng, Siva Rajesh Kasa, Santhosh Kumar Kasa, Hyokun Yun, Choon Hui Teo, Sravan Babu Bodapati\n\nPaper\n\n\n\n\n\nWWW 2025, short paper\n\n\nLeveraging Structural Information in Tree Ensembles for Table Representation Learning\nNikhil Pattisapu*, Siva Rajesh Kasa, Sumegh Roychowdhury, Karan Gupta, Anish Bhanushali, Prasanna Srinivasa Murthy\n\nPaper Project page"
   },
   {
-    "objectID": "research.html",
-    "href": "research.html",
-    "title": "Research",
+    "objectID": "publications.html#section-2",
+    "href": "publications.html#section-2",
+    "title": "Publications",
+    "section": "2024",
+    "text": "2024\n\n\nFindings of ACL 2024\n\n\nExploring Ordinality in Text Classification: A Comparative Study of Explicit and Implicit Techniques\nSiva Rajesh Kasa*, Aniket Goel, Karan Gupta, Sumegh Roychowdhury, Pattisapu Priyatam, Anish Bhanushali, Prasanna Srinivasa Murthy\n\nPaper\n\n\n\n\n\nKDD 2024, Applied Data Science Track\n\n\nTackling Concept Shift in Text Classification using Entailment-style Modeling\nSumegh Roychowdhury, Karan Gupta, Siva Rajesh Kasa*, Prasanna Srinivasa Murthy, Alok Chandra\n\nPaper\n\n\n\n\n\nResponsible Language Modeling workshop at AAAI 2024\n\n\nHow Robust Are LLMs to In-Context Majority Label Bias?\nKaran Gupta, Sumegh Roychowdhury, Siva Rajesh Kasa*, Santhosh Kumar Kasa, Anish Bhanushali, Nikhil Pattisapu, Prasanna Srinivasa Murthy\n\nPaper Project page"
+  },
+  {
+    "objectID": "publications.html#earlier-work",
+    "href": "publications.html#earlier-work",
+    "title": "Publications",
+    "section": "Earlier work",
+    "text": "Earlier work\n\n\nScientific Reports 2023\n\n\nAvoiding Inferior Clusterings with Misspecified Gaussian Mixture Models\nSiva Rajesh Kasa*, Vaibhav Rajan\n\nPaper\n\n\n\n\n\nICIS 2021\n\n\nDependency Modeling with Copulas in Multi-Armed Bandits\nSiva Rajesh Kasa*, Vaibhav Rajan\n\nPaper\n\n\n\n\n\nSN Computer Science 2021\n\n\nA Statistical Test for Detecting Dependency Breakdown in Financial Markets\nSiva Rajesh Kasa*, Malay Bhattacharyya\n\nPaper\n\n\n\n\n\nEconometrics and Statistics\n\n\nImproved Inference of Gaussian Mixture Copula Model for Clustering and Reproducibility Analysis using Automatic Differentiation\nSiva Rajesh Kasa*, Vaibhav Rajan\n\nPaper\n\n\n\n\n\nBioinformatics 2020\n\n\nGaussian Mixture Copulas for High-Dimensional Clustering and Dependency-Based Subtyping\nSiva Rajesh Kasa*, Sakyajit Bhattacharya, Vaibhav Rajan\n\nPaper Project page"
+  },
+  {
+    "objectID": "publications.html#software-paper",
+    "href": "publications.html#software-paper",
+    "title": "Publications",
+    "section": "Software paper",
+    "text": "Software paper\n\n\narXiv preprint\n\n\nMixture-Models: A One-Stop Python Library for Model-Based Clustering using Various Mixture Models\nSiva Rajesh Kasa*, Hu Yijie, Santhosh Kumar Kasa, Vaibhav Rajan\n\nPaper Code Project page"
+  },
+  {
+    "objectID": "writing.html",
+    "href": "writing.html",
+    "title": "Writing",
     "section": "",
-    "text": "My research develops methods for language model inference, text classification, privacy, search, and statistical learning. I work on both mathematical questions and systems that are evaluated under production constraints."
-  },
-  {
-    "objectID": "research.html#language-model-inference",
-    "href": "research.html#language-model-inference",
-    "title": "Research",
-    "section": "Language model inference",
-    "text": "Language model inference\nI study how to reduce inference time while preserving model performance. My work covers autoregressive language models and diffusion language models.\n\nRelaxed speculative decoding\nStandard speculative decoding accepts a draft token only when a target model verifies it under an exact acceptance rule. Relaxed speculative decoding allows controlled disagreement between the draft and target models, increasing the number of accepted tokens while holding task performance fixed. The implementation was merged into HuggingFace transformers through the assistant_ensemble_weight generation argument.\nPaper · Code · HuggingFace contribution\n\n\nFréchet profile decoding\nFréchet profile decoding accelerates diffusion language model inference. It generalizes factor based schedules and controls when token positions are updated during iterative generation.\nPaper · Code · Project page\n\n\nConformal routing\nCopRoute studies how to route language model requests while accounting for dependence in model outcomes. It uses conformal methods to control routing decisions without assuming independent errors.\nPaper"
-  },
-  {
-    "objectID": "research.html#classification-privacy",
-    "href": "research.html#classification-privacy",
-    "title": "Research",
-    "section": "Classification and privacy",
-    "text": "Classification and privacy\nI study when generative and discriminative text classifiers behave differently, how shortcuts and distribution shifts affect their predictions, and what privacy risks follow from modeling the input distribution.\nThis work includes an EMNLP 2025 Outstanding Paper on generative and discriminative text classification, studies of concept shift and ordinal labels, and membership inference attacks on generative classifiers and preference data.\nGenerative and discriminative classifiers · Privacy in generative classifiers · Privacy in preference data"
-  },
-  {
-    "objectID": "research.html#search-recommendation",
-    "href": "research.html#search-recommendation",
-    "title": "Research",
-    "section": "Search and recommendation",
-    "text": "Search and recommendation\nAt Amazon, I design and deploy text generation and classification systems for search relevance and recommendation. My work covers multimodal calibration, long tail ranking under sparse behavioral feedback, counterfactual ranking analysis, and experimentation infrastructure used by search teams."
-  },
-  {
-    "objectID": "research.html#statistical-learning",
-    "href": "research.html#statistical-learning",
-    "title": "Research",
-    "section": "Statistical learning",
-    "text": "Statistical learning\nMy doctoral research studied dependence modeling with mixture models and copulas. The resulting work covers high dimensional clustering, model misspecification, reproducibility analysis, structural change in financial markets, and dependence in multi armed bandits.\nGaussian mixture copulas · Misspecified mixture models · Copulas in multi armed bandits"
+    "text": "I use these notes to work through mathematical ideas from the problem they solve to the final derivation. Every page is native to this site and supports TeX equations, so nothing depends on an external notebook viewer.\n\n\n\nGradient estimation\n\n\nReparameterization gradients\nThe parameter of interest sits inside a sampling distribution. Two unbiased estimators expose why a change of variables can reduce gradient variance.\n\n\n\n\nStatistical estimation\n\n\nWhy optimize log likelihood?\nA likelihood product and its logarithm share a maximizer. The logarithm gives additive derivatives and stable numerical computation.\n\n\n\n\nReinforcement learning\n\n\nConvergence of policy iteration\nWhy the values produced by policy iteration increase at every step and do not get stuck at a local optimum.\n\n\n\n\nRegression\n\n\nAssumptions in linear regression\nWhat the linearity, independence, normality, and constant-variance assumptions are for, and what still holds when they are violated.\n\n\n\n\nRegression\n\n\nWhy the residual variance estimator is unbiased\nA matrix derivation that the residual sum of squares divided by n minus p minus 1 is an unbiased estimator of the error variance."
   },
   {
     "objectID": "writing/log-likelihood.html",
@@ -264,5 +278,33 @@
     "title": "Why Optimize Log Likelihood?",
     "section": "6 Summary",
     "text": "6 Summary\nLog likelihood is used because it preserves the maximum likelihood estimate, turns products into additive terms, simplifies differentiation, supports minibatch estimates, and avoids floating point underflow. These properties follow from the logarithm and the independence factorization. They do not require a different statistical model."
+  },
+  {
+    "objectID": "writing/policy-iteration.html",
+    "href": "writing/policy-iteration.html",
+    "title": "Convergence of Policy Iteration",
+    "section": "",
+    "text": "First let’s see why the policy iteration algorithm works. It has two steps."
+  },
+  {
+    "objectID": "writing/policy-iteration.html#policy-evaluation-step",
+    "href": "writing/policy-iteration.html#policy-evaluation-step",
+    "title": "Convergence of Policy Iteration",
+    "section": "Policy evaluation step",
+    "text": "Policy evaluation step\n\\(v_n = r_{d_n} + \\gamma P_{d_n}v_n\\) is the general vectorial form of the system of linear equations.\nHere, the terms \\(r_{d_n}, P_{d_n}\\) are the immediate rewards and the corresponding rows of the transition matrix. These terms depend on the policy \\(\\Pi_n\\). Solving the above system of equations gives the values \\(v_n\\)."
+  },
+  {
+    "objectID": "writing/policy-iteration.html#policy-improvement-step",
+    "href": "writing/policy-iteration.html#policy-improvement-step",
+    "title": "Convergence of Policy Iteration",
+    "section": "Policy improvement step",
+    "text": "Policy improvement step\nAssume that we were able to find a new policy \\(\\Pi_{n+1}\\) such that\n\\[\n\\begin{aligned}\nr_{d_{n+1}} + \\gamma P_{d_{n+1}}v_n & \\ge r_{d_n} + \\gamma P_{d_n}v_n \\\\\n\\implies r_{d_{n+1}} & \\ge [I - \\gamma P_{d_{n+1}}]v_n \\quad \\text{(call this equation 1)}\n\\end{aligned}\n\\]\nNow, based on the new policy \\(\\Pi_{n+1}\\), we can find\n\\[\nv_{n+1} = r_{d_{n+1}} + \\gamma P_{d_{n+1}}v_{n+1} \\quad \\text{(call this equation 2)}\n\\]\nWe are going to show that \\(v_{n+1} \\ge v_n\\), that is, for all the states the newly chosen policy \\(\\Pi_{n+1}\\) gives a value at least as high as the previous policy \\(\\Pi_n\\)."
+  },
+  {
+    "objectID": "writing/policy-iteration.html#proof",
+    "href": "writing/policy-iteration.html#proof",
+    "title": "Convergence of Policy Iteration",
+    "section": "Proof",
+    "text": "Proof\nFrom equation 2, we have\n\\[[I - \\gamma P_{d_{n+1}}]v_{n+1} = r_{d_{n+1}}\\]\nFrom equations 1 and 2, we have\n\\[v_{n+1} \\ge v_n\\]\nSo the values increase monotonically with each iteration. This is the key to understanding why policy iteration does not get stuck at a local maximum.\nA policy is a mapping over the state-action space. At every policy iteration step we look for at least one state-action pair that differs between \\(\\Pi_{n+1}\\) and \\(\\Pi_n\\) and check whether \\(r_{d_{n+1}} + \\gamma P_{d_{n+1}}v_n \\ge r_{d_n} + \\gamma P_{d_n}v_n\\). Only if the condition holds do we solve the new system of linear equations.\nAssume \\(\\Pi^{*}\\) and \\(\\Pi^{\\#}\\) are the global and local optimum respectively, so that \\(v_{*} \\ge v_{\\#}\\). Suppose the algorithm is stuck at the local optimum. Then the policy improvement step will not stop at the local optimum state-action space \\(\\Pi^{\\#}\\), because there exists at least one state-action pair in \\(\\Pi^{*}\\) that differs from \\(\\Pi^{\\#}\\) and yields a higher value of \\(v_{*}\\) compared to \\(v_{\\#}\\). In other words, assuming \\([I-\\gamma P_{d_*}]\\) is positive,\n\\[\n\\begin{aligned}\n[I-\\gamma P_{d_*}]v_* & \\ge [I-\\gamma P_{d_*}]v_{\\#} \\\\\n\\implies r_{d_*} & \\ge [I-\\gamma P_{d_*}]v_{\\#} \\\\\n\\implies r_{d_*} + \\gamma P_{d_*}v_{\\#} & \\ge v_{\\#} \\\\\n\\implies r_{d_*} + \\gamma P_{d_*}v_{\\#} & \\ge r_{d_\\#} + \\gamma P_{d_\\#}v_\\#\n\\end{aligned}\n\\]\nHence policy iteration does not stop at a local optimum."
   }
 ]

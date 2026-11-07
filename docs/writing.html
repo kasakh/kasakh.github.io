@@ -165,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>I use these notes to work through mathematical ideas from their optimization problem to the final derivation. The pages support TeX equations, cross references, citations, code, figures, and executable notebooks.</p>
+<p>I use these notes to work through mathematical ideas from the problem they solve to the final derivation. Every page is native to this site and supports TeX equations, so nothing depends on an external notebook viewer.</p>
 <div class="note-grid">
 <div class="note-card">
 <p class="note-meta">
@@ -173,7 +173,7 @@ Gradient estimation
 </p>
 <section id="reparameterization-gradients" class="level3">
 <h3 class="anchored" data-anchor-id="reparameterization-gradients"><a href="./writing/reparameterization-gradients.html">Reparameterization gradients</a></h3>
-<p>The parameter of interest appears inside a sampling distribution. Two unbiased estimators expose why a change of variables can reduce gradient variance.</p>
+<p>The parameter of interest sits inside a sampling distribution. Two unbiased estimators expose why a change of variables can reduce gradient variance.</p>
 </section>
 </div>
 <div class="note-card">
@@ -182,21 +182,39 @@ Statistical estimation
 </p>
 <section id="why-optimize-log-likelihood" class="level3">
 <h3 class="anchored" data-anchor-id="why-optimize-log-likelihood"><a href="./writing/log-likelihood.html">Why optimize log likelihood?</a></h3>
-<p>A likelihood product and its log have the same maximizer. The logarithm gives additive derivatives and stable numerical computation.</p>
+<p>A likelihood product and its logarithm share a maximizer. The logarithm gives additive derivatives and stable numerical computation.</p>
+</section>
+</div>
+<div class="note-card">
+<p class="note-meta">
+Reinforcement learning
+</p>
+<section id="convergence-of-policy-iteration" class="level3">
+<h3 class="anchored" data-anchor-id="convergence-of-policy-iteration"><a href="./writing/policy-iteration.html">Convergence of policy iteration</a></h3>
+<p>Why the values produced by policy iteration increase at every step and do not get stuck at a local optimum.</p>
+</section>
+</div>
+<div class="note-card">
+<p class="note-meta">
+Regression
+</p>
+<section id="assumptions-in-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions-in-linear-regression"><a href="./writing/linear-regression-assumptions.html">Assumptions in linear regression</a></h3>
+<p>What the linearity, independence, normality, and constant-variance assumptions are for, and what still holds when they are violated.</p>
+</section>
+</div>
+<div class="note-card">
+<p class="note-meta">
+Regression
+</p>
+<section id="why-the-residual-variance-estimator-is-unbiased" class="level3">
+<h3 class="anchored" data-anchor-id="why-the-residual-variance-estimator-is-unbiased"><a href="./writing/mse-unbiased.html">Why the residual variance estimator is unbiased</a></h3>
+<p>A matrix derivation that the residual sum of squares divided by n minus p minus 1 is an unbiased estimator of the error variance.</p>
 </section>
 </div>
 </div>
-<section id="earlier-notebooks" class="level2">
-<h2 class="anchored" data-anchor-id="earlier-notebooks">Earlier notebooks</h2>
-<p>These notebooks are preserved while their notation and explanations are revised for the new site.</p>
-<ul>
-<li><a href="https://nbviewer.org/github/kasakh/kasakh.github.io/blob/master/Proof%20of%20Policy%20Iteration%20algorithm.ipynb">Convergence of policy iteration</a></li>
-<li><a href="https://nbviewer.org/github/kasakh/kasakh.github.io/blob/master/linear_regression.ipynb">Assumptions in linear regression</a></li>
-<li><a href="https://nbviewer.org/github/kasakh/kasakh.github.io/blob/master/MSE%20is%20unbiased%20proof%20.ipynb">Estimating residual variance in linear regression</a></li>
-</ul>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

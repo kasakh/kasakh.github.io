@@ -4,7 +4,7 @@ description: "Research papers, preprints, and software papers."
 toc-depth: 2
 ---
 
-Each entry links to a public paper and, when available, its code or project page.
+All authors are listed in order. A superscript asterisk (<sup>*</sup>) marks a first author, and joint first authors are each asterisked. My name is in **bold**. Each entry links to a public paper and, when available, its code or project page.
 
 ## Preprints
 
@@ -13,7 +13,7 @@ Each entry links to a public paper and, when available, its code or project page
 
 ### CopRoute: Dependence-Aware Conformal Routing for Language Models
 
-**Siva Rajesh Kasa**, Santhosh Kumar Kasa, Karan Gupta. Joint first authors.
+**Siva Rajesh Kasa**<sup>*</sup>, Santhosh Kumar Kasa<sup>*</sup>, Karan Gupta
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2610.13276">Paper</a>
@@ -25,7 +25,7 @@ Each entry links to a public paper and, when available, its code or project page
 
 ### SatisDive: Traversing the Satisfaction-Diversity Frontier in Text-to-Image Diffusion
 
-Kevin Zhai, **Siva Rajesh Kasa**, et al.
+Kevin Zhai<sup>*</sup>, **Siva Rajesh Kasa**, Soumya Roy, Sumit Negi, Mubarak Shah
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2610.02372">Paper</a>
@@ -38,7 +38,7 @@ Kevin Zhai, **Siva Rajesh Kasa**, et al.
 
 ### Correcting the Optimizer's Curse in World-Model Planning
 
-**Siva Rajesh Kasa**
+**Siva Rajesh Kasa**<sup>*</sup>
 :::
 
 ## 2026
@@ -48,7 +48,7 @@ Kevin Zhai, **Siva Rajesh Kasa**, et al.
 
 ### Fast-dLLM++: Fréchet Profile Decoding for Faster Diffusion LLM Inference
 
-**Siva Rajesh Kasa** et al.
+**Siva Rajesh Kasa**<sup>*</sup>, Yasong Dai, Sumit Negi, Hongdong Li
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2606.02955">Paper</a>
@@ -60,9 +60,9 @@ Kevin Zhai, **Siva Rajesh Kasa**, et al.
 ::: {.publication}
 <p class="publication-venue">TMLR 2026 and Regulatable ML workshop at NeurIPS 2025</p>
 
-### The Hidden Cost of Modeling P(X): Membership Inference Attacks in Generative Text Classifiers
+### The Hidden Cost of Modeling P(X): Vulnerability to Membership Inference Attacks in Generative Text Classifiers
 
-Owais Makroo, **Siva Rajesh Kasa**, et al. Joint first authors.
+Owais Makroo<sup>*</sup>, **Siva Rajesh Kasa**<sup>*</sup>, Sumegh Roychowdhury, Karan Gupta, Nikhil Pattisapu, Santhosh Kasa, Sumit Negi
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2510.16122">Paper</a>
@@ -75,7 +75,7 @@ Owais Makroo, **Siva Rajesh Kasa**, et al. Joint first authors.
 
 ### DIVERSED: Relaxed Speculative Decoding via Dynamic Ensemble Verification
 
-Ziyi Wang, **Siva Rajesh Kasa**, et al. Joint first authors.
+Ziyi Wang<sup>*</sup>, **Siva Rajesh Kasa**<sup>*</sup>, Ankith M S, Santhosh Kumar Kasa, Jiaru Zou, Sumit Negi, Ruqi Zhang, Nan Jiang, Qifan Song
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2604.07622">Paper</a>
@@ -89,7 +89,7 @@ Ziyi Wang, **Siva Rajesh Kasa**, et al. Joint first authors.
 
 ### Generative vs Discriminative? Revisiting the Shortcut Learning Debate in Text Classification
 
-**Siva Rajesh Kasa** et al.
+**Siva Rajesh Kasa**<sup>*</sup>, Karthik Raavi, Nikhil Pattisapu, Ashutosh Kumar, Yaswanth Biruduraju, Santhosh Kasa, Sumegh Roychowdhury, Ankith M S, Sumit Negi
 
 <div class="publication-links">
 <a href="https://cdn.amazon.science/df/b6/477679844fd7b73b254d30317fdb/scipub-approval152134-47600519-generative-vs-discriminative-revisiting-the-shortcut-learning-debate-in-text-classification.pdf">Paper</a>
@@ -104,7 +104,7 @@ Ziyi Wang, **Siva Rajesh Kasa**, et al. Joint first authors.
 
 ### Generative or Discriminative? Revisiting Text Classification in the Era of Transformers
 
-**Siva Rajesh Kasa** et al.
+**Siva Rajesh Kasa**<sup>*</sup>, Karan Gupta, Sumegh Roychowdhury, Ashutosh Kumar, Yaswanth Biruduraju, Santhosh Kumar Kasa, Nikhil Priyatam Pattisapu, Arindam Bhattacharya, Shailendra Agarwal, Vijay Huddar
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2506.12181">Paper</a>
@@ -117,7 +117,7 @@ Ziyi Wang, **Siva Rajesh Kasa**, et al. Joint first authors.
 
 ### Exposing Privacy Gaps: Membership Inference Attack on Preference Data for LLM Alignment
 
-Qizhang Feng, **Siva Rajesh Kasa**, et al. Joint first authors.
+Qizhang Feng<sup>*</sup>, **Siva Rajesh Kasa**<sup>*</sup>, Santhosh Kumar Kasa, Hyokun Yun, Choon Hui Teo, Sravan Babu Bodapati
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2407.06443">Paper</a>
@@ -129,7 +129,7 @@ Qizhang Feng, **Siva Rajesh Kasa**, et al. Joint first authors.
 
 ### Leveraging Structural Information in Tree Ensembles for Table Representation Learning
 
-Nikhil Pattisapu, **Siva Rajesh Kasa**, et al.
+Nikhil Pattisapu<sup>*</sup>, **Siva Rajesh Kasa**, Sumegh Roychowdhury, Karan Gupta, Anish Bhanushali, Prasanna Srinivasa Murthy
 
 <div class="publication-links">
 <a href="https://cdn.amazon.science/f9/47/322047cd4a1baa5646d247c38fc1/leveraging-structural-information-in-tree-ensembles-for-table-representation-learning.pdf">Paper</a>
@@ -144,7 +144,7 @@ Nikhil Pattisapu, **Siva Rajesh Kasa**, et al.
 
 ### Exploring Ordinality in Text Classification: A Comparative Study of Explicit and Implicit Techniques
 
-**Siva Rajesh Kasa** et al.
+**Siva Rajesh Kasa**<sup>*</sup>, Aniket Goel, Karan Gupta, Sumegh Roychowdhury, Pattisapu Priyatam, Anish Bhanushali, Prasanna Srinivasa Murthy
 
 <div class="publication-links">
 <a href="https://aclanthology.org/2024.findings-acl.320/">Paper</a>
@@ -156,7 +156,7 @@ Nikhil Pattisapu, **Siva Rajesh Kasa**, et al.
 
 ### Tackling Concept Shift in Text Classification using Entailment-style Modeling
 
-Sumegh Roychowdhury, Karan Gupta, **Siva Rajesh Kasa**, et al. Joint first authors.
+Sumegh Roychowdhury<sup>*</sup>, Karan Gupta<sup>*</sup>, **Siva Rajesh Kasa**<sup>*</sup>, Prasanna Srinivasa Murthy, Alok Chandra
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2311.03320">Paper</a>
@@ -168,7 +168,7 @@ Sumegh Roychowdhury, Karan Gupta, **Siva Rajesh Kasa**, et al. Joint first autho
 
 ### How Robust Are LLMs to In-Context Majority Label Bias?
 
-Karan Gupta, Sumegh Roychowdhury, **Siva Rajesh Kasa**, et al. Joint first authors.
+Karan Gupta<sup>*</sup>, Sumegh Roychowdhury<sup>*</sup>, **Siva Rajesh Kasa**<sup>*</sup>, Santhosh Kumar Kasa, Anish Bhanushali, Nikhil Pattisapu, Prasanna Srinivasa Murthy
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2312.16549">Paper</a>
@@ -183,7 +183,7 @@ Karan Gupta, Sumegh Roychowdhury, **Siva Rajesh Kasa**, et al. Joint first autho
 
 ### Avoiding Inferior Clusterings with Misspecified Gaussian Mixture Models
 
-**Siva Rajesh Kasa**, Vaibhav Rajan
+**Siva Rajesh Kasa**<sup>*</sup>, Vaibhav Rajan
 
 <div class="publication-links">
 <a href="https://www.nature.com/articles/s41598-023-44608-3">Paper</a>
@@ -195,7 +195,7 @@ Karan Gupta, Sumegh Roychowdhury, **Siva Rajesh Kasa**, et al. Joint first autho
 
 ### Dependency Modeling with Copulas in Multi-Armed Bandits
 
-**Siva Rajesh Kasa**, Vaibhav Rajan
+**Siva Rajesh Kasa**<sup>*</sup>, Vaibhav Rajan
 
 <div class="publication-links">
 <a href="https://aisel.aisnet.org/icis2021/data_analytics/data_analytics/13/">Paper</a>
@@ -207,7 +207,7 @@ Karan Gupta, Sumegh Roychowdhury, **Siva Rajesh Kasa**, et al. Joint first autho
 
 ### A Statistical Test for Detecting Dependency Breakdown in Financial Markets
 
-**Siva Rajesh Kasa**, Malay Bhattacharyya
+**Siva Rajesh Kasa**<sup>*</sup>, Malay Bhattacharyya
 
 <div class="publication-links">
 <a href="https://link.springer.com/article/10.1007/s42979-021-00671-z">Paper</a>
@@ -219,7 +219,7 @@ Karan Gupta, Sumegh Roychowdhury, **Siva Rajesh Kasa**, et al. Joint first autho
 
 ### Improved Inference of Gaussian Mixture Copula Model for Clustering and Reproducibility Analysis using Automatic Differentiation
 
-**Siva Rajesh Kasa**, Vaibhav Rajan
+**Siva Rajesh Kasa**<sup>*</sup>, Vaibhav Rajan
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2010.14359">Paper</a>
@@ -231,7 +231,7 @@ Karan Gupta, Sumegh Roychowdhury, **Siva Rajesh Kasa**, et al. Joint first autho
 
 ### Gaussian Mixture Copulas for High-Dimensional Clustering and Dependency-Based Subtyping
 
-**Siva Rajesh Kasa**, Sakyajit Bhattacharya, Vaibhav Rajan
+**Siva Rajesh Kasa**<sup>*</sup>, Sakyajit Bhattacharya, Vaibhav Rajan
 
 <div class="publication-links">
 <a href="https://pubmed.ncbi.nlm.nih.gov/31368480/">Paper</a>
@@ -246,7 +246,7 @@ Karan Gupta, Sumegh Roychowdhury, **Siva Rajesh Kasa**, et al. Joint first autho
 
 ### Mixture-Models: A One-Stop Python Library for Model-Based Clustering using Various Mixture Models
 
-**Siva Rajesh Kasa**, Hu Yijie, Santhosh Kumar Kasa, Vaibhav Rajan
+**Siva Rajesh Kasa**<sup>*</sup>, Hu Yijie, Santhosh Kumar Kasa, Vaibhav Rajan
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2402.10229">Paper</a>

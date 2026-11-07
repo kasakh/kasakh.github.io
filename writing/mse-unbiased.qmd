@@ -1,0 +1,86 @@
+---
+title: "Why the Residual Variance Estimator is Unbiased"
+description: "A derivation showing that the residual sum of squares divided by n minus p minus 1 is an unbiased estimator of the error variance in linear regression."
+categories: [Statistics, Regression]
+toc: true
+---
+
+Under the usual notation,
+
+$$Y = X\beta + \epsilon$$
+
+where $X$ is an $n \times (p+1)$ matrix, that is, $n$ rows of datapoints and $p+1$ variables, and
+
+$$\hat Y = X\hat\beta, \qquad \hat\beta = (X'X)^{-1}X'Y \implies \hat\beta' = Y'X(X'X)^{-1}.$$
+
+Expanding the residual sum of squares,
+
+$$
+\begin{aligned}
+\Sigma (Y_i - \hat Y_i)^2 & = (Y - \hat Y)'(Y - \hat Y) \\
+& = \big(X(\beta - \hat \beta) + \epsilon\big)'\big(X(\beta - \hat \beta) + \epsilon\big)\\
+& = \underbrace{(\beta - \hat \beta)'X'X(\beta - \hat \beta)}_{\text{term 1}} + \underbrace{\epsilon'X (\beta - \hat \beta)}_{\text{term 2}} + \underbrace{(\beta - \hat \beta)'X'\epsilon}_{\text{term 3}} + \epsilon'\epsilon.
+\end{aligned}
+$$
+
+Simplifying the individual terms.
+
+Term 1:
+
+$$
+\begin{aligned}
+(\beta - \hat \beta)'X'X(\beta - \hat \beta) &= (\beta - (X'X)^{-1}X'Y)'X'X(\beta - (X'X)^{-1}X'Y)\\
+&= (\beta' - Y'X(X'X)^{-1})X'X(\beta - (X'X)^{-1}X'Y) \\
+&= \beta'X'X\beta - Y'X\beta - \beta'(X'X)(X'X)^{-1}X'Y + Y'X(X'X)^{-1}X'Y \\
+&= \beta'X'X\beta - (\beta'X' + \epsilon')X\beta - \beta'(X'X)(X'X)^{-1}X'Y \\
+&\quad + (\beta'X' + \epsilon')X(X'X)^{-1}X'Y \qquad (\text{substituting } Y') \\
+&= - \epsilon'X\beta + \epsilon'X(X'X)^{-1}X'Y \qquad (\text{some terms cancel}) \\
+&= - \epsilon'X\beta + \epsilon'X(X'X)^{-1}X'(X\beta + \epsilon) \qquad (\text{substituting } Y) \\
+&= \epsilon'X(X'X)^{-1}X'\epsilon.
+\end{aligned}
+$$
+
+Term 2:
+
+$$
+\begin{aligned}
+\epsilon'X (\beta - \hat \beta) &= \epsilon'X(\beta - (X'X)^{-1}X'Y)\\
+&= \epsilon'X(\beta - (X'X)^{-1}X'(X\beta+\epsilon)) \qquad (\text{substituting } Y) \\
+&= -\epsilon'X(X'X)^{-1}X'\epsilon.
+\end{aligned}
+$$
+
+Term 3 is the same as term 2, namely $-\epsilon'X(X'X)^{-1}X'\epsilon$. Collecting the terms,
+
+$$
+\begin{aligned}
+\Sigma (Y_i - \hat Y_i)^2 &= \epsilon'X(X'X)^{-1}X'\epsilon - \epsilon'X(X'X)^{-1}X'\epsilon - \epsilon'X(X'X)^{-1}X'\epsilon + \epsilon'\epsilon\\
+&= \epsilon'\epsilon - \epsilon'X(X'X)^{-1}X'\epsilon\\
+&= \epsilon'\epsilon - \epsilon'P\epsilon,
+\end{aligned}
+$$
+
+where $P$ is the projection matrix, which is symmetric and idempotent.
+
+Now take the expectation,
+
+$$
+\begin{aligned}
+E\big[\Sigma (Y_i - \hat Y_i)^2\big] &= E(\epsilon'\epsilon - \epsilon'P\epsilon)\\
+&= E(\epsilon'\epsilon) - E(\epsilon'P\epsilon)\\
+&= n\sigma^2 - \sigma^2\,\mathrm{trace}(P)\\
+&= (n-(p+1))\sigma^2,
+\end{aligned}
+$$
+
+using the result below that $\mathrm{trace}(P) = p+1$. Therefore
+
+$$\frac{\Sigma (Y_i - \hat Y_i)^2}{\,n-(p+1)\,}$$
+
+is an unbiased estimator of $\sigma^2$.
+
+## Proof that the trace of P equals p plus 1
+
+The trace operator is commutative, $\mathrm{trace}(AB)= \mathrm{trace}(BA)$. Therefore
+
+$$\mathrm{trace}\big(\underbrace{X}_{A}\;\underbrace{(X'X)^{-1}X'}_{B}\big) = \mathrm{trace}\big((X'X)^{-1}X'X\big) = p+1.$$

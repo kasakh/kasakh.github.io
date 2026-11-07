@@ -1,0 +1,24 @@
+---
+title: "Assumptions in Linear Regression"
+description: "What the linearity, independence, normality, and constant-variance assumptions are for, and what still holds when they are violated."
+categories: [Statistics, Regression]
+toc: true
+---
+
+*A post explaining the popular assumptions involved in linear regression and their importance.*
+
+Most people usually think that the output of linear regression is only valid when the Linear, Independent, Normal, and Constant (LINC) assumptions are satisfied on the error terms. This is a post explaining what happens if those assumptions are violated.
+
+Let me start by asking one basic question. Suppose we have our entire population of univariate datapoints $(X_1, Y)$. If one were to minimize squared error on this data and get the parameters $b_0, b_1$ where
+
+$$Y = b_0 + b_1 X_1 \quad \text{(1)}$$
+
+but the error terms do not follow the assumptions above, what next?
+
+You can safely use this model for predicting the relationship between $X_1$ and $Y$. There is no need to do any F-test or t-test. In fact, the LINC assumptions are needed only to perform the F-test or the t-test. The whole point of testing arises when we try to estimate the relationship $b_1$ using the sample data available.
+
+When we use the sample data and perform ordinary least squares, we get an estimate of $b_1$ usually denoted $\beta_1$. The first assumption in LINC, Linear, states that $E(\epsilon)=0$, which means that $\beta_1$ is an unbiased estimator of $b_1$. Why?
+
+$Y = \beta_0 + \beta_1 X_1 + \epsilon$ is the regression equation we get from the sample. If $E(\epsilon)=0$, then $\hat Y = b_0 + b_1 X_1$, which is exactly equation (1). This means that for a given value of $X_1$ there could be multiple values of $Y$, and our equation predicts the mean of these values, $\hat Y$.
+
+Having said that, the concept of $r^2$ does not depend on these LINC assumptions. So we can still say what proportion of variation in the dependent variable, within the sample data, is explained by our regression equation.
