@@ -1,0 +1,171 @@
+---
+title: "Siva Rajesh Kasa"
+page-layout: full
+body-classes: home-page
+toc: false
+listing: false
+---
+
+::: {.hero-grid}
+::: {.hero-copy}
+<p class="hero-kicker">Applied machine learning researcher</p>
+
+# Siva Rajesh Kasa
+
+<p class="hero-lede">I study inference acceleration for language models, reliable text classification, machine learning privacy, and statistical learning. I am a Senior Applied Scientist at Amazon in Seattle.</p>
+
+<div class="hero-links">
+<a href="research.html">Research</a>
+<a href="writing.html">Mathematical notes</a>
+<a href="files/siva-rajesh-kasa-cv.pdf">Curriculum vitae</a>
+</div>
+:::
+
+::: {.hero-portrait}
+<img src="images/pic.jpg" alt="Portrait of Siva Rajesh Kasa">
+:::
+:::
+
+## Research
+
+::: {.research-grid}
+::: {.research-card}
+<p class="eyebrow">Language model inference</p>
+
+### Faster generation at matched performance
+
+Methods for accelerating autoregressive and diffusion language models, including relaxed speculative decoding and Fréchet profile decoding.
+
+[Read about this research](research.html#language-model-inference)
+:::
+
+::: {.research-card}
+<p class="eyebrow">Classification and privacy</p>
+
+### How modeling choices change behavior
+
+Work on generative and discriminative classification, shortcut learning, concept shift, calibration, and membership inference attacks.
+
+[Read about this research](research.html#classification-privacy)
+:::
+
+::: {.research-card}
+<p class="eyebrow">Search and recommendation</p>
+
+### Learning under sparse feedback
+
+Production research on search relevance, multimodal calibration, long tail ranking, counterfactual analysis, and experimentation.
+
+[Read about this research](research.html#search-recommendation)
+:::
+
+::: {.research-card}
+<p class="eyebrow">Statistical learning</p>
+
+### Dependence beyond correlation
+
+Mixture models, copulas, high dimensional clustering, time series, and sequential decision making.
+
+[Read about this research](research.html#statistical-learning)
+:::
+:::
+
+::: {.math-window}
+<p class="eyebrow">From the notebook</p>
+
+For a differentiable transformation `g_θ` of noise `ε` whose distribution does not depend on `θ`, the pathwise gradient is
+
+$$
+\nabla_\theta
+\mathbb{E}_{\varepsilon \sim p(\varepsilon)}
+\left[f\!\left(g_\theta(\varepsilon)\right)\right]
+=
+\mathbb{E}_{\varepsilon \sim p(\varepsilon)}
+\left[\nabla_\theta f\!\left(g_\theta(\varepsilon)\right)\right].
+$$
+
+[Read the note on reparameterization gradients](writing/reparameterization-gradients.html)
+:::
+
+## Selected publications
+
+::: {.publication}
+<p class="publication-venue">NeurIPS 2026</p>
+
+### Fréchet Profile Decoding for Faster Diffusion Language Model Inference
+
+**Siva Rajesh Kasa** et al.
+
+<div class="publication-links">
+<a href="https://arxiv.org/abs/2606.02955">Paper</a>
+<a href="https://github.com/Ringo-Star/FastdLLM_plusplus">Code</a>
+<a href="https://ringo-star.github.io/projectpage_frechet/">Project page</a>
+</div>
+:::
+
+::: {.publication}
+<p class="publication-venue">EMNLP 2025, Outstanding Paper</p>
+
+### Generative or Discriminative? Revisiting Text Classification in the Era of Transformers
+
+**Siva Rajesh Kasa** et al.
+
+<div class="publication-links">
+<a href="https://arxiv.org/abs/2506.12181">Paper</a>
+<a href="https://github.com/amazon-science/Generative-vs-Discriminative-Classifiers">Code</a>
+</div>
+:::
+
+::: {.publication}
+<p class="publication-venue">AISTATS 2026</p>
+
+### Relaxed Speculative Decoding via Dynamic Ensemble Verification
+
+Ziyi Wang, **Siva Rajesh Kasa**, et al. Joint first authors.
+
+<div class="publication-links">
+<a href="https://arxiv.org/abs/2604.07622">Paper</a>
+<a href="https://github.com/comeusr/diversed">Code</a>
+<a href="https://github.com/huggingface/transformers/pull/45979">HuggingFace contribution</a>
+</div>
+:::
+
+::: {.publication}
+<p class="publication-venue">Preprint</p>
+
+### CopRoute: Dependence Aware Conformal Routing for Language Models
+
+**Siva Rajesh Kasa**, Santhosh Kumar Kasa, Karan Gupta. Joint first authors.
+
+<div class="publication-links">
+<a href="https://arxiv.org/abs/2610.13276">Paper</a>
+</div>
+:::
+
+[View all publications](publications.html)
+
+## Writing
+
+I use the writing section for self contained notes on probability, statistics, optimization, and machine learning. The pages support TeX equations, theorem style blocks, citations, code, and executable notebooks.
+
+::: {.note-grid}
+::: {.note-card}
+<p class="note-meta">Gradient estimation</p>
+
+### Reparameterization gradients
+
+Two unbiased gradient estimators for expectations, with an exact variance comparison in a Gaussian example.
+
+[Read the note](writing/reparameterization-gradients.html)
+:::
+
+::: {.note-card}
+<p class="note-meta">Statistical estimation</p>
+
+### Why optimize log likelihood?
+
+The optimization, algebraic, and numerical reasons for replacing a likelihood product with a sum of log densities.
+
+[Read the note](writing/log-likelihood.html)
+:::
+:::

@@ -1,0 +1,128 @@
+---
+title: "Why Optimize Log Likelihood?"
+description: "The optimization, algebraic, and numerical reasons for using a log likelihood."
+date: 2026-11-07
+categories: [Statistical estimation, Optimization]
+toc: true
+number-sections: true
+---
+
+## The optimization problem
+
+Let `x₁, …, xₙ` be independent observations from a model with density `p(x | θ)`. Maximum likelihood estimation chooses the parameter `θ` that makes the observed data most likely:
+
+$$
+\theta^\star
+=
+\operatorname*{arg\,max}_{\theta} L(\theta),
+$$
+
+where the likelihood is
+
+$$
+L(\theta)
+=
+\prod_{i=1}^{n} p(x_i \mid \theta).
+$$
+
+The parameter `θ` appears in every factor of this product. We differentiate the objective with respect to `θ` to find an optimizer. The product is mathematically valid, but it is inconvenient for both algebra and numerical computation.
+
+## The logarithm preserves the optimizer
+
+The natural logarithm is strictly increasing on positive numbers. Therefore, the likelihood and log likelihood have the same maximizers:
+
+$$
+\operatorname*{arg\,max}_{\theta} L(\theta)
+=
+\operatorname*{arg\,max}_{\theta} \log L(\theta).
+$$
+
+The log likelihood is
+
+$$
+\ell(\theta)
+=
+\log L(\theta)
+=
+\sum_{i=1}^{n} \log p(x_i \mid \theta).
+$$
+
+Taking the logarithm changes the representation of the objective, but it does not change which value of `θ` maximizes it.
+
+## Products become sums
+
+Direct differentiation of the likelihood requires the product rule across all observations:
+
+$$
+\nabla_\theta L(\theta)
+=
+\sum_{i=1}^{n}
+\left[
+  \nabla_\theta p(x_i \mid \theta)
+  \prod_{j \ne i} p(x_j \mid \theta)
+\right].
+$$
+
+The gradient of the log likelihood is additive:
+
+$$
+\nabla_\theta \ell(\theta)
+=
+\sum_{i=1}^{n}
+\nabla_\theta \log p(x_i \mid \theta).
+$$
+
+Each observation contributes one term. This form supports minibatch optimization because a batch can estimate the sum over the full data set.
+
+## Log probabilities avoid numerical underflow
+
+Individual densities or probabilities often lie between zero and one. Multiplying many such terms can produce a number smaller than the floating point system can represent. The computed likelihood then becomes zero even when every factor is positive.
+
+The log likelihood replaces multiplication with addition. Small probabilities become finite negative log probabilities:
+
+$$
+\log\!\left(
+  \prod_{i=1}^{n} p(x_i \mid \theta)
+\right)
+=
+\sum_{i=1}^{n} \log p(x_i \mid \theta).
+$$
+
+This representation preserves information that would be lost if the product underflowed to zero.
+
+## Gaussian regression as an example
+
+Assume a regression model with prediction `μᵢ(θ)` and independent Gaussian errors of variance `σ²`:
+
+$$
+x_i \mid \theta
+\sim
+\mathcal{N}\!\left(\mu_i(\theta), \sigma^2\right).
+$$
+
+The log likelihood is
+
+$$
+\ell(\theta)
+=
+-\frac{n}{2}\log(2\pi\sigma^2)
+-\frac{1}{2\sigma^2}
+\sum_{i=1}^{n}
+\left(x_i - \mu_i(\theta)\right)^2.
+$$
+
+When `σ²` is fixed, maximizing this expression with respect to `θ` is equivalent to minimizing the sum of squared errors:
+
+$$
+\theta^\star
+=
+\operatorname*{arg\,min}_{\theta}
+\sum_{i=1}^{n}
+\left(x_i - \mu_i(\theta)\right)^2.
+$$
+
+The familiar squared error objective therefore follows from a Gaussian observation model.
+
+## Summary
+
+Log likelihood is used because it preserves the maximum likelihood estimate, turns products into additive terms, simplifies differentiation, supports minibatch estimates, and avoids floating point underflow. These properties follow from the logarithm and the independence factorization. They do not require a different statistical model.

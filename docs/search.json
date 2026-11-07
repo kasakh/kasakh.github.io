@@ -1,0 +1,268 @@
+[
+  {
+    "objectID": "writing/reparameterization-gradients.html",
+    "href": "writing/reparameterization-gradients.html",
+    "title": "Reparameterization Gradients",
+    "section": "",
+    "text": "Suppose the objective is an expectation under a distribution controlled by a parameter θ:\n\\[\nJ(\\theta)\n=\n\\mathbb{E}_{x \\sim q_\\theta(x)}\\left[f(x)\\right],\n\\qquad\n\\theta^\\star\n=\n\\operatorname*{arg\\,min}_{\\theta} J(\\theta).\n\\]\nThe parameter θ appears in the sampling distribution q_θ. A sample drawn by an ordinary random number generator does not retain a differentiable path from x back to θ. We therefore need an estimator of the derivative of J(θ) with respect to θ."
+  },
+  {
+    "objectID": "writing/reparameterization-gradients.html#the-optimization-problem",
+    "href": "writing/reparameterization-gradients.html#the-optimization-problem",
+    "title": "Reparameterization Gradients",
+    "section": "",
+    "text": "Suppose the objective is an expectation under a distribution controlled by a parameter θ:\n\\[\nJ(\\theta)\n=\n\\mathbb{E}_{x \\sim q_\\theta(x)}\\left[f(x)\\right],\n\\qquad\n\\theta^\\star\n=\n\\operatorname*{arg\\,min}_{\\theta} J(\\theta).\n\\]\nThe parameter θ appears in the sampling distribution q_θ. A sample drawn by an ordinary random number generator does not retain a differentiable path from x back to θ. We therefore need an estimator of the derivative of J(θ) with respect to θ."
+  },
+  {
+    "objectID": "writing/reparameterization-gradients.html#the-score-function-estimator",
+    "href": "writing/reparameterization-gradients.html#the-score-function-estimator",
+    "title": "Reparameterization Gradients",
+    "section": "2 The score function estimator",
+    "text": "2 The score function estimator\nDifferentiating the density inside the integral gives\n\\[\n\\nabla_\\theta J(\\theta)\n=\n\\int f(x)\\,\\nabla_\\theta q_\\theta(x)\\,dx.\n\\]\nUsing the identity below\n\\[\n\\nabla_\\theta q_\\theta(x)\n=\nq_\\theta(x)\\,\\nabla_\\theta \\log q_\\theta(x),\n\\]\nwe obtain the score function gradient\n\\[\n\\nabla_\\theta J(\\theta)\n=\n\\mathbb{E}_{x \\sim q_\\theta}\n\\left[\n  f(x)\\,\\nabla_\\theta \\log q_\\theta(x)\n\\right].\n\\]\nThis identity is general. It requires a differentiable log density, but it does not require f to be differentiable."
+  },
+  {
+    "objectID": "writing/reparameterization-gradients.html#the-pathwise-estimator",
+    "href": "writing/reparameterization-gradients.html#the-pathwise-estimator",
+    "title": "Reparameterization Gradients",
+    "section": "3 The pathwise estimator",
+    "text": "3 The pathwise estimator\nAssume a sample from q_θ can be written as a differentiable transformation of parameter free noise:\n\\[\n\\varepsilon \\sim p(\\varepsilon),\n\\qquad\nx = g_\\theta(\\varepsilon),\n\\]\nwhere the distribution p does not depend on θ. The same objective becomes\n\\[\nJ(\\theta)\n=\n\\mathbb{E}_{\\varepsilon \\sim p(\\varepsilon)}\n\\left[\n  f\\!\\left(g_\\theta(\\varepsilon)\\right)\n\\right].\n\\]\nNow θ appears inside the deterministic transformation g_θ. Under the usual conditions for exchanging differentiation and expectation, the gradient is\n\\[\n\\nabla_\\theta J(\\theta)\n=\n\\mathbb{E}_{\\varepsilon \\sim p(\\varepsilon)}\n\\left[\n  \\nabla_\\theta f\\!\\left(g_\\theta(\\varepsilon)\\right)\n\\right].\n\\]\nThis is the pathwise gradient estimator, commonly called the reparameterization trick."
+  },
+  {
+    "objectID": "writing/reparameterization-gradients.html#a-gaussian-example",
+    "href": "writing/reparameterization-gradients.html#a-gaussian-example",
+    "title": "Reparameterization Gradients",
+    "section": "4 A Gaussian example",
+    "text": "4 A Gaussian example\nLet the sampling distribution be a unit variance Gaussian with mean θ, and let the objective function be the square of the sample:\n\\[\nq_\\theta(x) = \\mathcal{N}(\\theta, 1),\n\\qquad\nf(x) = x^2.\n\\]\nThe objective has a closed form:\n\\[\nJ(\\theta)\n=\n\\mathbb{E}\\left[x^2\\right]\n=\n\\theta^2 + 1.\n\\]\nIts exact gradient is\n\\[\n\\nabla_\\theta J(\\theta) = 2\\theta.\n\\]\n\n4.1 Score function gradient\nFor the Gaussian mean,\n\\[\n\\nabla_\\theta \\log q_\\theta(x) = x - \\theta.\n\\]\nOne Monte Carlo sample therefore gives the estimator\n\\[\nG_{\\mathrm{score}}\n=\nx^2(x-\\theta).\n\\]\nWrite the sample as x = θ + ε, with standard normal noise ε. The estimator has mean 2θ and variance\n\\[\n\\operatorname{Var}\\!\\left(G_{\\mathrm{score}}\\right)\n=\n\\theta^4 + 14\\theta^2 + 15.\n\\]\n\n\n4.2 Pathwise gradient\nThe reparameterized sample is\n\\[\nx = \\theta + \\varepsilon,\n\\qquad\n\\varepsilon \\sim \\mathcal{N}(0,1).\n\\]\nDifferentiating the sampled objective with respect to θ gives\n\\[\nG_{\\mathrm{path}}\n=\n\\nabla_\\theta (\\theta + \\varepsilon)^2\n=\n2(\\theta + \\varepsilon).\n\\]\nThis estimator also has mean 2θ, while its variance is\n\\[\n\\operatorname{Var}\\!\\left(G_{\\mathrm{path}}\\right) = 4.\n\\]\nFor an average over n independent samples, both variances are divided by n:\n\\[\n\\operatorname{Var}\\!\\left(\\overline{G}_{\\mathrm{score}}\\right)\n=\n\\frac{\\theta^4 + 14\\theta^2 + 15}{n},\n\\qquad\n\\operatorname{Var}\\!\\left(\\overline{G}_{\\mathrm{path}}\\right)\n=\n\\frac{4}{n}.\n\\]\nThe pathwise estimator removes the fourth order growth in θ that appears in the score function estimator for this example."
+  },
+  {
+    "objectID": "writing/reparameterization-gradients.html#what-the-change-of-variables-accomplishes",
+    "href": "writing/reparameterization-gradients.html#what-the-change-of-variables-accomplishes",
+    "title": "Reparameterization Gradients",
+    "section": "5 What the change of variables accomplishes",
+    "text": "5 What the change of variables accomplishes\nThe reparameterization does not alter the distribution of x or the optimization objective. It moves the parameter from the distribution used for sampling into a differentiable deterministic map. Automatic differentiation can then follow the path from f(g_θ(ε)) back to θ while holding the sampled noise ε fixed."
+  },
+  {
+    "objectID": "writing/reparameterization-gradients.html#references",
+    "href": "writing/reparameterization-gradients.html#references",
+    "title": "Reparameterization Gradients",
+    "section": "6 References",
+    "text": "6 References\n\nDiederik P. Kingma and Max Welling. Auto-Encoding Variational Bayes. 2014.\nRonald J. Williams. Simple Statistical Gradient-Following Algorithms for Connectionist Reinforcement Learning. 1992."
+  },
+  {
+    "objectID": "writing.html",
+    "href": "writing.html",
+    "title": "Writing",
+    "section": "",
+    "text": "I use these notes to work through mathematical ideas from their optimization problem to the final derivation. The pages support TeX equations, cross references, citations, code, figures, and executable notebooks."
+  },
+  {
+    "objectID": "writing.html#earlier-notebooks",
+    "href": "writing.html#earlier-notebooks",
+    "title": "Writing",
+    "section": "Earlier notebooks",
+    "text": "Earlier notebooks\nThese notebooks are preserved while their notation and explanations are revised for the new site.\n\nConvergence of policy iteration\nAssumptions in linear regression\nEstimating residual variance in linear regression"
+  },
+  {
+    "objectID": "publications.html",
+    "href": "publications.html",
+    "title": "Publications",
+    "section": "",
+    "text": "Each entry links to a public paper and, when available, its code or project page."
+  },
+  {
+    "objectID": "publications.html#preprints",
+    "href": "publications.html#preprints",
+    "title": "Publications",
+    "section": "Preprints",
+    "text": "Preprints\n\n\nPreprint, under review\n\n\nCopRoute: Dependence-Aware Conformal Routing for Language Models\nSiva Rajesh Kasa, Santhosh Kumar Kasa, Karan Gupta. Joint first authors.\n\nPaper\n\n\n\n\n\nPreprint, under review\n\n\nSatisDive: Traversing the Satisfaction-Diversity Frontier in Text-to-Image Diffusion\nKevin Zhai, Siva Rajesh Kasa, et al.\n\nPaper Code\n\n\n\n\n\nPreprint, under review\n\n\nCorrecting the Optimizer’s Curse in World-Model Planning\nSiva Rajesh Kasa"
+  },
+  {
+    "objectID": "publications.html#section",
+    "href": "publications.html#section",
+    "title": "Publications",
+    "section": "2026",
+    "text": "2026\n\n\nNeurIPS 2026 and SPGIM workshop at ICML 2026\n\n\nFast-dLLM++: Fréchet Profile Decoding for Faster Diffusion LLM Inference\nSiva Rajesh Kasa et al.\n\nPaper Code Project page\n\n\n\n\n\nTMLR 2026 and Regulatable ML workshop at NeurIPS 2025\n\n\nThe Hidden Cost of Modeling P(X): Membership Inference Attacks in Generative Text Classifiers\nOwais Makroo, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper Code\n\n\n\n\n\nAISTATS 2026 and Efficient Reasoning workshop at NeurIPS 2025\n\n\nDIVERSED: Relaxed Speculative Decoding via Dynamic Ensemble Verification\nZiyi Wang, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper Code HuggingFace contribution\n\n\n\n\n\nCombining Theory and Benchmarks workshop at ICML 2026\n\n\nGenerative vs Discriminative? Revisiting the Shortcut Learning Debate in Text Classification\nSiva Rajesh Kasa et al.\n\nPaper Project page"
+  },
+  {
+    "objectID": "publications.html#section-1",
+    "href": "publications.html#section-1",
+    "title": "Publications",
+    "section": "2025",
+    "text": "2025\n\n\nEMNLP 2025, Outstanding Paper Award\n\n\nGenerative or Discriminative? Revisiting Text Classification in the Era of Transformers\nSiva Rajesh Kasa et al.\n\nPaper Code\n\n\n\n\n\nAISTATS 2025\n\n\nExposing Privacy Gaps: Membership Inference Attack on Preference Data for LLM Alignment\nQizhang Feng, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper\n\n\n\n\n\nWWW 2025, short paper\n\n\nLeveraging Structural Information in Tree Ensembles for Table Representation Learning\nNikhil Pattisapu, Siva Rajesh Kasa, et al.\n\nPaper Project page"
+  },
+  {
+    "objectID": "publications.html#section-2",
+    "href": "publications.html#section-2",
+    "title": "Publications",
+    "section": "2024",
+    "text": "2024\n\n\nFindings of ACL 2024\n\n\nExploring Ordinality in Text Classification: A Comparative Study of Explicit and Implicit Techniques\nSiva Rajesh Kasa et al.\n\nPaper\n\n\n\n\n\nKDD 2024, Applied Data Science Track\n\n\nTackling Concept Shift in Text Classification using Entailment-style Modeling\nSumegh Roychowdhury, Karan Gupta, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper\n\n\n\n\n\nResponsible Language Modeling workshop at AAAI 2024\n\n\nHow Robust Are LLMs to In-Context Majority Label Bias?\nKaran Gupta, Sumegh Roychowdhury, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper Project page"
+  },
+  {
+    "objectID": "publications.html#earlier-work",
+    "href": "publications.html#earlier-work",
+    "title": "Publications",
+    "section": "Earlier work",
+    "text": "Earlier work\n\n\nScientific Reports 2023\n\n\nAvoiding Inferior Clusterings with Misspecified Gaussian Mixture Models\nSiva Rajesh Kasa, Vaibhav Rajan\n\nPaper\n\n\n\n\n\nICIS 2021\n\n\nDependency Modeling with Copulas in Multi-Armed Bandits\nSiva Rajesh Kasa, Vaibhav Rajan\n\nPaper\n\n\n\n\n\nSN Computer Science 2021\n\n\nA Statistical Test for Detecting Dependency Breakdown in Financial Markets\nSiva Rajesh Kasa, Malay Bhattacharyya\n\nPaper\n\n\n\n\n\nEconometrics and Statistics\n\n\nImproved Inference of Gaussian Mixture Copula Model for Clustering and Reproducibility Analysis using Automatic Differentiation\nSiva Rajesh Kasa, Vaibhav Rajan\n\nPaper\n\n\n\n\n\nBioinformatics 2020\n\n\nGaussian Mixture Copulas for High-Dimensional Clustering and Dependency-Based Subtyping\nSiva Rajesh Kasa, Sakyajit Bhattacharya, Vaibhav Rajan\n\nPaper Project page"
+  },
+  {
+    "objectID": "publications.html#software-paper",
+    "href": "publications.html#software-paper",
+    "title": "Publications",
+    "section": "Software paper",
+    "text": "Software paper\n\n\narXiv preprint\n\n\nMixture-Models: A One-Stop Python Library for Model-Based Clustering using Various Mixture Models\nSiva Rajesh Kasa, Hu Yijie, Santhosh Kumar Kasa, Vaibhav Rajan\n\nPaper Code Project page"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I am a Senior Applied Scientist at Amazon in Seattle. I develop production machine learning systems for search relevance and recommendation, and I conduct research in language model inference, text classification, privacy, distribution shifts, and statistical learning.\nMy research has appeared at NeurIPS, TMLR, EMNLP, AISTATS, ACL, KDD, WWW, ICIS, Bioinformatics, Econometrics and Statistics, Scientific Reports, and SN Computer Science. My 2025 EMNLP paper on generative and discriminative text classification received an Outstanding Paper Award."
+  },
+  {
+    "objectID": "about.html#biography",
+    "href": "about.html#biography",
+    "title": "About",
+    "section": "",
+    "text": "I am a Senior Applied Scientist at Amazon in Seattle. I develop production machine learning systems for search relevance and recommendation, and I conduct research in language model inference, text classification, privacy, distribution shifts, and statistical learning.\nMy research has appeared at NeurIPS, TMLR, EMNLP, AISTATS, ACL, KDD, WWW, ICIS, Bioinformatics, Econometrics and Statistics, Scientific Reports, and SN Computer Science. My 2025 EMNLP paper on generative and discriminative text classification received an Outstanding Paper Award."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nDoctor of Philosophy, School of Computing National University of Singapore, 2018 to 2022 Dissertation: Dependency Modeling with Mixture Models and Copulas Supervisor: Vaibhav Rajan\nMBA, Decision Sciences Indian Institute of Management Bangalore, 2016 to 2018\nBachelor of Technology, Mechanical Engineering Indian Institute of Technology Madras, 2008 to 2012"
+  },
+  {
+    "objectID": "about.html#open-source",
+    "href": "about.html#open-source",
+    "title": "About",
+    "section": "Open source",
+    "text": "Open source\nI contributed relaxed speculative decoding to HuggingFace transformers. The merged implementation makes the method available through the assistant_ensemble_weight generation argument.\nI also created and maintain statistical computing packages, including Mixture Models for Python and quadmatrix for R."
+  },
+  {
+    "objectID": "about.html#professional-service",
+    "href": "about.html#professional-service",
+    "title": "About",
+    "section": "Professional service",
+    "text": "Professional service\nI chaired the Resources and Evaluation track at EMNLP 2025 and served on the program committee for ICIS 2021. I have reviewed for NeurIPS, AISTATS, EMNLP, Biometrika, the Journal of Statistical Software, Econometrics and Statistics, Computational Statistics and Data Analysis, the Journal of Computational Statistics, and Scientific Reports."
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About",
+    "section": "Contact",
+    "text": "Contact\nEmail: firstname.lastname@gmail.com, using my first and last name in lowercase with no spaces Google Scholar: Siva Rajesh Kasa GitHub: kasakh Curriculum vitae: PDF"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Siva Rajesh Kasa",
+    "section": "",
+    "text": "Applied machine learning researcher\n\n\n\n\nI study inference acceleration for language models, reliable text classification, machine learning privacy, and statistical learning. I am a Senior Applied Scientist at Amazon in Seattle.\n\n\nResearch Mathematical notes Curriculum vitae"
+  },
+  {
+    "objectID": "index.html#research",
+    "href": "index.html#research",
+    "title": "Siva Rajesh Kasa",
+    "section": "Research",
+    "text": "Research\n\n\n\nLanguage model inference\n\n\nFaster generation at matched performance\nMethods for accelerating autoregressive and diffusion language models, including relaxed speculative decoding and Fréchet profile decoding.\nRead about this research\n\n\n\n\nClassification and privacy\n\n\nHow modeling choices change behavior\nWork on generative and discriminative classification, shortcut learning, concept shift, calibration, and membership inference attacks.\nRead about this research\n\n\n\n\nSearch and recommendation\n\n\nLearning under sparse feedback\nProduction research on search relevance, multimodal calibration, long tail ranking, counterfactual analysis, and experimentation.\nRead about this research\n\n\n\n\nStatistical learning\n\n\nDependence beyond correlation\nMixture models, copulas, high dimensional clustering, time series, and sequential decision making.\nRead about this research\n\n\n\n\n\nFrom the notebook\n\nFor a differentiable transformation g_θ of noise ε whose distribution does not depend on θ, the pathwise gradient is\n\\[\n\\nabla_\\theta\n\\mathbb{E}_{\\varepsilon \\sim p(\\varepsilon)}\n\\left[f\\!\\left(g_\\theta(\\varepsilon)\\right)\\right]\n=\n\\mathbb{E}_{\\varepsilon \\sim p(\\varepsilon)}\n\\left[\\nabla_\\theta f\\!\\left(g_\\theta(\\varepsilon)\\right)\\right].\n\\]\nRead the note on reparameterization gradients"
+  },
+  {
+    "objectID": "index.html#selected-publications",
+    "href": "index.html#selected-publications",
+    "title": "Siva Rajesh Kasa",
+    "section": "Selected publications",
+    "text": "Selected publications\n\n\nNeurIPS 2026\n\n\nFréchet Profile Decoding for Faster Diffusion Language Model Inference\nSiva Rajesh Kasa et al.\n\nPaper Code Project page\n\n\n\n\n\nEMNLP 2025, Outstanding Paper\n\n\nGenerative or Discriminative? Revisiting Text Classification in the Era of Transformers\nSiva Rajesh Kasa et al.\n\nPaper Code\n\n\n\n\n\nAISTATS 2026\n\n\nRelaxed Speculative Decoding via Dynamic Ensemble Verification\nZiyi Wang, Siva Rajesh Kasa, et al. Joint first authors.\n\nPaper Code HuggingFace contribution\n\n\n\n\n\nPreprint\n\n\nCopRoute: Dependence Aware Conformal Routing for Language Models\nSiva Rajesh Kasa, Santhosh Kumar Kasa, Karan Gupta. Joint first authors.\n\nPaper\n\n\n\nView all publications"
+  },
+  {
+    "objectID": "index.html#writing",
+    "href": "index.html#writing",
+    "title": "Siva Rajesh Kasa",
+    "section": "Writing",
+    "text": "Writing\nI use the writing section for self contained notes on probability, statistics, optimization, and machine learning. The pages support TeX equations, theorem style blocks, citations, code, and executable notebooks.\n\n\n\nGradient estimation\n\n\nReparameterization gradients\nTwo unbiased gradient estimators for expectations, with an exact variance comparison in a Gaussian example.\nRead the note\n\n\n\n\nStatistical estimation\n\n\nWhy optimize log likelihood?\nThe optimization, algebraic, and numerical reasons for replacing a likelihood product with a sum of log densities.\nRead the note"
+  },
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "My research develops methods for language model inference, text classification, privacy, search, and statistical learning. I work on both mathematical questions and systems that are evaluated under production constraints."
+  },
+  {
+    "objectID": "research.html#language-model-inference",
+    "href": "research.html#language-model-inference",
+    "title": "Research",
+    "section": "Language model inference",
+    "text": "Language model inference\nI study how to reduce inference time while preserving model performance. My work covers autoregressive language models and diffusion language models.\n\nRelaxed speculative decoding\nStandard speculative decoding accepts a draft token only when a target model verifies it under an exact acceptance rule. Relaxed speculative decoding allows controlled disagreement between the draft and target models, increasing the number of accepted tokens while holding task performance fixed. The implementation was merged into HuggingFace transformers through the assistant_ensemble_weight generation argument.\nPaper · Code · HuggingFace contribution\n\n\nFréchet profile decoding\nFréchet profile decoding accelerates diffusion language model inference. It generalizes factor based schedules and controls when token positions are updated during iterative generation.\nPaper · Code · Project page\n\n\nConformal routing\nCopRoute studies how to route language model requests while accounting for dependence in model outcomes. It uses conformal methods to control routing decisions without assuming independent errors.\nPaper"
+  },
+  {
+    "objectID": "research.html#classification-privacy",
+    "href": "research.html#classification-privacy",
+    "title": "Research",
+    "section": "Classification and privacy",
+    "text": "Classification and privacy\nI study when generative and discriminative text classifiers behave differently, how shortcuts and distribution shifts affect their predictions, and what privacy risks follow from modeling the input distribution.\nThis work includes an EMNLP 2025 Outstanding Paper on generative and discriminative text classification, studies of concept shift and ordinal labels, and membership inference attacks on generative classifiers and preference data.\nGenerative and discriminative classifiers · Privacy in generative classifiers · Privacy in preference data"
+  },
+  {
+    "objectID": "research.html#search-recommendation",
+    "href": "research.html#search-recommendation",
+    "title": "Research",
+    "section": "Search and recommendation",
+    "text": "Search and recommendation\nAt Amazon, I design and deploy text generation and classification systems for search relevance and recommendation. My work covers multimodal calibration, long tail ranking under sparse behavioral feedback, counterfactual ranking analysis, and experimentation infrastructure used by search teams."
+  },
+  {
+    "objectID": "research.html#statistical-learning",
+    "href": "research.html#statistical-learning",
+    "title": "Research",
+    "section": "Statistical learning",
+    "text": "Statistical learning\nMy doctoral research studied dependence modeling with mixture models and copulas. The resulting work covers high dimensional clustering, model misspecification, reproducibility analysis, structural change in financial markets, and dependence in multi armed bandits.\nGaussian mixture copulas · Misspecified mixture models · Copulas in multi armed bandits"
+  },
+  {
+    "objectID": "writing/log-likelihood.html",
+    "href": "writing/log-likelihood.html",
+    "title": "Why Optimize Log Likelihood?",
+    "section": "",
+    "text": "Let x₁, …, xₙ be independent observations from a model with density p(x | θ). Maximum likelihood estimation chooses the parameter θ that makes the observed data most likely:\n\\[\n\\theta^\\star\n=\n\\operatorname*{arg\\,max}_{\\theta} L(\\theta),\n\\]\nwhere the likelihood is\n\\[\nL(\\theta)\n=\n\\prod_{i=1}^{n} p(x_i \\mid \\theta).\n\\]\nThe parameter θ appears in every factor of this product. We differentiate the objective with respect to θ to find an optimizer. The product is mathematically valid, but it is inconvenient for both algebra and numerical computation."
+  },
+  {
+    "objectID": "writing/log-likelihood.html#the-optimization-problem",
+    "href": "writing/log-likelihood.html#the-optimization-problem",
+    "title": "Why Optimize Log Likelihood?",
+    "section": "",
+    "text": "Let x₁, …, xₙ be independent observations from a model with density p(x | θ). Maximum likelihood estimation chooses the parameter θ that makes the observed data most likely:\n\\[\n\\theta^\\star\n=\n\\operatorname*{arg\\,max}_{\\theta} L(\\theta),\n\\]\nwhere the likelihood is\n\\[\nL(\\theta)\n=\n\\prod_{i=1}^{n} p(x_i \\mid \\theta).\n\\]\nThe parameter θ appears in every factor of this product. We differentiate the objective with respect to θ to find an optimizer. The product is mathematically valid, but it is inconvenient for both algebra and numerical computation."
+  },
+  {
+    "objectID": "writing/log-likelihood.html#the-logarithm-preserves-the-optimizer",
+    "href": "writing/log-likelihood.html#the-logarithm-preserves-the-optimizer",
+    "title": "Why Optimize Log Likelihood?",
+    "section": "2 The logarithm preserves the optimizer",
+    "text": "2 The logarithm preserves the optimizer\nThe natural logarithm is strictly increasing on positive numbers. Therefore, the likelihood and log likelihood have the same maximizers:\n\\[\n\\operatorname*{arg\\,max}_{\\theta} L(\\theta)\n=\n\\operatorname*{arg\\,max}_{\\theta} \\log L(\\theta).\n\\]\nThe log likelihood is\n\\[\n\\ell(\\theta)\n=\n\\log L(\\theta)\n=\n\\sum_{i=1}^{n} \\log p(x_i \\mid \\theta).\n\\]\nTaking the logarithm changes the representation of the objective, but it does not change which value of θ maximizes it."
+  },
+  {
+    "objectID": "writing/log-likelihood.html#products-become-sums",
+    "href": "writing/log-likelihood.html#products-become-sums",
+    "title": "Why Optimize Log Likelihood?",
+    "section": "3 Products become sums",
+    "text": "3 Products become sums\nDirect differentiation of the likelihood requires the product rule across all observations:\n\\[\n\\nabla_\\theta L(\\theta)\n=\n\\sum_{i=1}^{n}\n\\left[\n  \\nabla_\\theta p(x_i \\mid \\theta)\n  \\prod_{j \\ne i} p(x_j \\mid \\theta)\n\\right].\n\\]\nThe gradient of the log likelihood is additive:\n\\[\n\\nabla_\\theta \\ell(\\theta)\n=\n\\sum_{i=1}^{n}\n\\nabla_\\theta \\log p(x_i \\mid \\theta).\n\\]\nEach observation contributes one term. This form supports minibatch optimization because a batch can estimate the sum over the full data set."
+  },
+  {
+    "objectID": "writing/log-likelihood.html#log-probabilities-avoid-numerical-underflow",
+    "href": "writing/log-likelihood.html#log-probabilities-avoid-numerical-underflow",
+    "title": "Why Optimize Log Likelihood?",
+    "section": "4 Log probabilities avoid numerical underflow",
+    "text": "4 Log probabilities avoid numerical underflow\nIndividual densities or probabilities often lie between zero and one. Multiplying many such terms can produce a number smaller than the floating point system can represent. The computed likelihood then becomes zero even when every factor is positive.\nThe log likelihood replaces multiplication with addition. Small probabilities become finite negative log probabilities:\n\\[\n\\log\\!\\left(\n  \\prod_{i=1}^{n} p(x_i \\mid \\theta)\n\\right)\n=\n\\sum_{i=1}^{n} \\log p(x_i \\mid \\theta).\n\\]\nThis representation preserves information that would be lost if the product underflowed to zero."
+  },
+  {
+    "objectID": "writing/log-likelihood.html#gaussian-regression-as-an-example",
+    "href": "writing/log-likelihood.html#gaussian-regression-as-an-example",
+    "title": "Why Optimize Log Likelihood?",
+    "section": "5 Gaussian regression as an example",
+    "text": "5 Gaussian regression as an example\nAssume a regression model with prediction μᵢ(θ) and independent Gaussian errors of variance σ²:\n\\[\nx_i \\mid \\theta\n\\sim\n\\mathcal{N}\\!\\left(\\mu_i(\\theta), \\sigma^2\\right).\n\\]\nThe log likelihood is\n\\[\n\\ell(\\theta)\n=\n-\\frac{n}{2}\\log(2\\pi\\sigma^2)\n-\\frac{1}{2\\sigma^2}\n\\sum_{i=1}^{n}\n\\left(x_i - \\mu_i(\\theta)\\right)^2.\n\\]\nWhen σ² is fixed, maximizing this expression with respect to θ is equivalent to minimizing the sum of squared errors:\n\\[\n\\theta^\\star\n=\n\\operatorname*{arg\\,min}_{\\theta}\n\\sum_{i=1}^{n}\n\\left(x_i - \\mu_i(\\theta)\\right)^2.\n\\]\nThe familiar squared error objective therefore follows from a Gaussian observation model."
+  },
+  {
+    "objectID": "writing/log-likelihood.html#summary",
+    "href": "writing/log-likelihood.html#summary",
+    "title": "Why Optimize Log Likelihood?",
+    "section": "6 Summary",
+    "text": "6 Summary\nLog likelihood is used because it preserves the maximum likelihood estimate, turns products into additive terms, simplifies differentiation, supports minibatch estimates, and avoids floating point underflow. These properties follow from the logarithm and the independence factorization. They do not require a different statistical model."
+  }
+]

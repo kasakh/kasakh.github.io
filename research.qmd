@@ -1,0 +1,46 @@
+---
+title: "Research"
+description: "Research themes and selected projects."
+---
+
+My research develops methods for language model inference, text classification, privacy, search, and statistical learning. I work on both mathematical questions and systems that are evaluated under production constraints.
+
+## Language model inference {#language-model-inference}
+
+I study how to reduce inference time while preserving model performance. My work covers autoregressive language models and diffusion language models.
+
+### Relaxed speculative decoding
+
+Standard speculative decoding accepts a draft token only when a target model verifies it under an exact acceptance rule. Relaxed speculative decoding allows controlled disagreement between the draft and target models, increasing the number of accepted tokens while holding task performance fixed. The implementation was merged into HuggingFace `transformers` through the `assistant_ensemble_weight` generation argument.
+
+[Paper](https://arxiv.org/abs/2604.07622) · [Code](https://github.com/comeusr/diversed) · [HuggingFace contribution](https://github.com/huggingface/transformers/pull/45979)
+
+### Fréchet profile decoding
+
+Fréchet profile decoding accelerates diffusion language model inference. It generalizes factor based schedules and controls when token positions are updated during iterative generation.
+
+[Paper](https://arxiv.org/abs/2606.02955) · [Code](https://github.com/Ringo-Star/FastdLLM_plusplus) · [Project page](https://ringo-star.github.io/projectpage_frechet/)
+
+### Conformal routing
+
+CopRoute studies how to route language model requests while accounting for dependence in model outcomes. It uses conformal methods to control routing decisions without assuming independent errors.
+
+[Paper](https://arxiv.org/abs/2610.13276)
+
+## Classification and privacy {#classification-privacy}
+
+I study when generative and discriminative text classifiers behave differently, how shortcuts and distribution shifts affect their predictions, and what privacy risks follow from modeling the input distribution.
+
+This work includes an EMNLP 2025 Outstanding Paper on generative and discriminative text classification, studies of concept shift and ordinal labels, and membership inference attacks on generative classifiers and preference data.
+
+[Generative and discriminative classifiers](https://arxiv.org/abs/2506.12181) · [Privacy in generative classifiers](https://arxiv.org/abs/2510.16122) · [Privacy in preference data](https://arxiv.org/abs/2407.06443)
+
+## Search and recommendation {#search-recommendation}
+
+At Amazon, I design and deploy text generation and classification systems for search relevance and recommendation. My work covers multimodal calibration, long tail ranking under sparse behavioral feedback, counterfactual ranking analysis, and experimentation infrastructure used by search teams.
+
+## Statistical learning {#statistical-learning}
+
+My doctoral research studied dependence modeling with mixture models and copulas. The resulting work covers high dimensional clustering, model misspecification, reproducibility analysis, structural change in financial markets, and dependence in multi armed bandits.
+
+[Gaussian mixture copulas](https://pubmed.ncbi.nlm.nih.gov/31368480/) · [Misspecified mixture models](https://www.nature.com/articles/s41598-023-44608-3) · [Copulas in multi armed bandits](https://aisel.aisnet.org/icis2021/data_analytics/data_analytics/13/)

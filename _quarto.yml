@@ -1,0 +1,59 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+    - "writing/**/*.qmd"
+  resources:
+    - ".nojekyll"
+    - "images/pic.jpg"
+    - "files/**"
+
+pagetitle: "{{< meta title >}}"
+
+website:
+  title: "Siva Rajesh Kasa"
+  site-url: "https://kasakh.github.io"
+  description: "Research in language models, statistical machine learning, and search."
+  favicon: "images/pic.jpg"
+  search: true
+  navbar:
+    background: light
+    pinned: true
+    left:
+      - text: Research
+        href: research.qmd
+      - text: Publications
+        href: publications.qmd
+      - text: Writing
+        href: writing.qmd
+      - text: About
+        href: about.qmd
+    right:
+      - icon: github
+        href: "https://github.com/kasakh"
+        aria-label: GitHub
+      - text: Scholar
+        href: "https://scholar.google.com/citations?user=qCs5b2IAAAAJ"
+  page-footer:
+    left: "© 2026 Siva Rajesh Kasa"
+    right: "Built with [Quarto](https://quarto.org/)"
+
+format:
+  html:
+    theme: default
+    title-prefix: ""
+    css: styles.css
+    toc: true
+    toc-location: right
+    smooth-scroll: true
+    link-external-newwindow: true
+    code-copy: true
+    anchor-sections: true
+    html-math-method: mathjax
+    include-in-header:
+      text: |
+        <meta name="theme-color" content="#f4f0e8">
+
+execute:
+  freeze: auto

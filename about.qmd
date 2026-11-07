@@ -1,0 +1,40 @@
+---
+title: "About"
+description: "Biography, education, open source work, and professional service."
+---
+
+## Biography
+
+I am a Senior Applied Scientist at Amazon in Seattle. I develop production machine learning systems for search relevance and recommendation, and I conduct research in language model inference, text classification, privacy, distribution shifts, and statistical learning.
+
+My research has appeared at NeurIPS, TMLR, EMNLP, AISTATS, ACL, KDD, WWW, ICIS, Bioinformatics, Econometrics and Statistics, Scientific Reports, and SN Computer Science. My 2025 EMNLP paper on generative and discriminative text classification received an Outstanding Paper Award.
+
+## Education
+
+**Doctor of Philosophy, School of Computing**<br>
+National University of Singapore, 2018 to 2022<br>
+Dissertation: *Dependency Modeling with Mixture Models and Copulas*<br>
+Supervisor: Vaibhav Rajan
+
+**MBA, Decision Sciences**<br>
+Indian Institute of Management Bangalore, 2016 to 2018
+
+**Bachelor of Technology, Mechanical Engineering**<br>
+Indian Institute of Technology Madras, 2008 to 2012
+
+## Open source
+
+I contributed relaxed speculative decoding to [HuggingFace `transformers`](https://github.com/huggingface/transformers/pull/45979). The merged implementation makes the method available through the `assistant_ensemble_weight` generation argument.
+
+I also created and maintain statistical computing packages, including [`Mixture Models`](https://github.com/kasakh/Mixture-Models) for Python and `quadmatrix` for R.
+
+## Professional service
+
+I chaired the Resources and Evaluation track at EMNLP 2025 and served on the program committee for ICIS 2021. I have reviewed for NeurIPS, AISTATS, EMNLP, Biometrika, the Journal of Statistical Software, Econometrics and Statistics, Computational Statistics and Data Analysis, the Journal of Computational Statistics, and Scientific Reports.
+
+## Contact
+
+Email: `firstname.lastname@gmail.com`, using my first and last name in lowercase with no spaces<br>
+Google Scholar: [Siva Rajesh Kasa](https://scholar.google.com/citations?user=qCs5b2IAAAAJ)<br>
+GitHub: [kasakh](https://github.com/kasakh)<br>
+Curriculum vitae: [PDF](files/siva-rajesh-kasa-cv.pdf)

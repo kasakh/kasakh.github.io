@@ -1,0 +1,33 @@
+---
+title: "Writing"
+description: "Notes on probability, statistics, optimization, and machine learning."
+toc: false
+---
+
+I use these notes to work through mathematical ideas from their optimization problem to the final derivation. The pages support TeX equations, cross references, citations, code, figures, and executable notebooks.
+
+::: {.note-grid}
+::: {.note-card}
+<p class="note-meta">Gradient estimation</p>
+
+### [Reparameterization gradients](writing/reparameterization-gradients.qmd)
+
+The parameter of interest appears inside a sampling distribution. Two unbiased estimators expose why a change of variables can reduce gradient variance.
+:::
+
+::: {.note-card}
+<p class="note-meta">Statistical estimation</p>
+
+### [Why optimize log likelihood?](writing/log-likelihood.qmd)
+
+A likelihood product and its log have the same maximizer. The logarithm gives additive derivatives and stable numerical computation.
+:::
+:::
+
+## Earlier notebooks
+
+These notebooks are preserved while their notation and explanations are revised for the new site.
+
+* [Convergence of policy iteration](https://nbviewer.org/github/kasakh/kasakh.github.io/blob/master/Proof%20of%20Policy%20Iteration%20algorithm.ipynb)
+* [Assumptions in linear regression](https://nbviewer.org/github/kasakh/kasakh.github.io/blob/master/linear_regression.ipynb)
+* [Estimating residual variance in linear regression](https://nbviewer.org/github/kasakh/kasakh.github.io/blob/master/MSE%20is%20unbiased%20proof%20.ipynb)

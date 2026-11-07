@@ -1,0 +1,188 @@
+---
+title: "Reparameterization Gradients"
+description: "Two gradient estimators for expectations and an exact variance comparison."
+date: 2026-11-07
+categories: [Gradient estimation, Probability]
+toc: true
+number-sections: true
+---
+
+## The optimization problem
+
+Suppose the objective is an expectation under a distribution controlled by a parameter `θ`:
+
+$$
+J(\theta)
+=
+\mathbb{E}_{x \sim q_\theta(x)}\left[f(x)\right],
+\qquad
+\theta^\star
+=
+\operatorname*{arg\,min}_{\theta} J(\theta).
+$$
+
+The parameter `θ` appears in the sampling distribution `q_θ`. A sample drawn by an ordinary random number generator does not retain a differentiable path from `x` back to `θ`. We therefore need an estimator of the derivative of `J(θ)` with respect to `θ`.
+
+## The score function estimator
+
+Differentiating the density inside the integral gives
+
+$$
+\nabla_\theta J(\theta)
+=
+\int f(x)\,\nabla_\theta q_\theta(x)\,dx.
+$$
+
+Using the identity below
+
+$$
+\nabla_\theta q_\theta(x)
+=
+q_\theta(x)\,\nabla_\theta \log q_\theta(x),
+$$
+
+we obtain the score function gradient
+
+$$
+\nabla_\theta J(\theta)
+=
+\mathbb{E}_{x \sim q_\theta}
+\left[
+  f(x)\,\nabla_\theta \log q_\theta(x)
+\right].
+$$
+
+This identity is general. It requires a differentiable log density, but it does not require `f` to be differentiable.
+
+## The pathwise estimator
+
+Assume a sample from `q_θ` can be written as a differentiable transformation of parameter free noise:
+
+$$
+\varepsilon \sim p(\varepsilon),
+\qquad
+x = g_\theta(\varepsilon),
+$$
+
+where the distribution `p` does not depend on `θ`. The same objective becomes
+
+$$
+J(\theta)
+=
+\mathbb{E}_{\varepsilon \sim p(\varepsilon)}
+\left[
+  f\!\left(g_\theta(\varepsilon)\right)
+\right].
+$$
+
+Now `θ` appears inside the deterministic transformation `g_θ`. Under the usual conditions for exchanging differentiation and expectation, the gradient is
+
+$$
+\nabla_\theta J(\theta)
+=
+\mathbb{E}_{\varepsilon \sim p(\varepsilon)}
+\left[
+  \nabla_\theta f\!\left(g_\theta(\varepsilon)\right)
+\right].
+$$
+
+This is the pathwise gradient estimator, commonly called the reparameterization trick.
+
+## A Gaussian example
+
+Let the sampling distribution be a unit variance Gaussian with mean `θ`, and let the objective function be the square of the sample:
+
+$$
+q_\theta(x) = \mathcal{N}(\theta, 1),
+\qquad
+f(x) = x^2.
+$$
+
+The objective has a closed form:
+
+$$
+J(\theta)
+=
+\mathbb{E}\left[x^2\right]
+=
+\theta^2 + 1.
+$$
+
+Its exact gradient is
+
+$$
+\nabla_\theta J(\theta) = 2\theta.
+$$
+
+### Score function gradient
+
+For the Gaussian mean,
+
+$$
+\nabla_\theta \log q_\theta(x) = x - \theta.
+$$
+
+One Monte Carlo sample therefore gives the estimator
+
+$$
+G_{\mathrm{score}}
+=
+x^2(x-\theta).
+$$
+
+Write the sample as `x = θ + ε`, with standard normal noise `ε`. The estimator has mean `2θ` and variance
+
+$$
+\operatorname{Var}\!\left(G_{\mathrm{score}}\right)
+=
+\theta^4 + 14\theta^2 + 15.
+$$
+
+### Pathwise gradient
+
+The reparameterized sample is
+
+$$
+x = \theta + \varepsilon,
+\qquad
+\varepsilon \sim \mathcal{N}(0,1).
+$$
+
+Differentiating the sampled objective with respect to `θ` gives
+
+$$
+G_{\mathrm{path}}
+=
+\nabla_\theta (\theta + \varepsilon)^2
+=
+2(\theta + \varepsilon).
+$$
+
+This estimator also has mean `2θ`, while its variance is
+
+$$
+\operatorname{Var}\!\left(G_{\mathrm{path}}\right) = 4.
+$$
+
+For an average over `n` independent samples, both variances are divided by `n`:
+
+$$
+\operatorname{Var}\!\left(\overline{G}_{\mathrm{score}}\right)
+=
+\frac{\theta^4 + 14\theta^2 + 15}{n},
+\qquad
+\operatorname{Var}\!\left(\overline{G}_{\mathrm{path}}\right)
+=
+\frac{4}{n}.
+$$
+
+The pathwise estimator removes the fourth order growth in `θ` that appears in the score function estimator for this example.
+
+## What the change of variables accomplishes
+
+The reparameterization does not alter the distribution of `x` or the optimization objective. It moves the parameter from the distribution used for sampling into a differentiable deterministic map. Automatic differentiation can then follow the path from `f(g_θ(ε))` back to `θ` while holding the sampled noise `ε` fixed.
+
+## References
+
+* Diederik P. Kingma and Max Welling. [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114). 2014.
+* Ronald J. Williams. [Simple Statistical Gradient-Following Algorithms for Connectionist Reinforcement Learning](https://link.springer.com/article/10.1007/BF00992696). 1992.
