@@ -94,7 +94,7 @@ $$
 
 ### Fréchet Profile Decoding for Faster Diffusion Language Model Inference
 
-**Siva Rajesh Kasa**<sup>&ast;</sup>, Yasong Dai, Sumit Negi, Hongdong Li
+**Siva Rajesh Kasa**<sup>&ast;</sup>, Yasong Dai<sup>&ast;</sup>, Sumit Negi, Hongdong Li
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2606.02955">Paper</a>
