@@ -94,7 +94,7 @@ $$
 
 ### Fréchet Profile Decoding for Faster Diffusion Language Model Inference
 
-**Siva Rajesh Kasa**<sup>*</sup>, Yasong Dai, Sumit Negi, Hongdong Li
+**Siva Rajesh Kasa**<sup>&ast;</sup>, Yasong Dai, Sumit Negi, Hongdong Li
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2606.02955">Paper</a>
@@ -108,7 +108,7 @@ $$
 
 ### Generative or Discriminative? Revisiting Text Classification in the Era of Transformers
 
-**Siva Rajesh Kasa**<sup>*</sup>, Karan Gupta, Sumegh Roychowdhury, Ashutosh Kumar, Yaswanth Biruduraju, Santhosh Kumar Kasa, Nikhil Priyatam Pattisapu, Arindam Bhattacharya, Shailendra Agarwal, Vijay Huddar
+**Siva Rajesh Kasa**<sup>&ast;</sup>, Karan Gupta, Sumegh Roychowdhury, Ashutosh Kumar, Yaswanth Biruduraju, Santhosh Kumar Kasa, Nikhil Priyatam Pattisapu, Arindam Bhattacharya, Shailendra Agarwal, Vijay Huddar
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2506.12181">Paper</a>
@@ -121,7 +121,7 @@ $$
 
 ### Relaxed Speculative Decoding via Dynamic Ensemble Verification
 
-Ziyi Wang<sup>*</sup>, **Siva Rajesh Kasa**<sup>*</sup>, Ankith M S, Santhosh Kumar Kasa, Jiaru Zou, Sumit Negi, Ruqi Zhang, Nan Jiang, Qifan Song
+Ziyi Wang<sup>&ast;</sup>, **Siva Rajesh Kasa**<sup>&ast;</sup>, Ankith M S, Santhosh Kumar Kasa, Jiaru Zou, Sumit Negi, Ruqi Zhang, Nan Jiang, Qifan Song
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2604.07622">Paper</a>
@@ -135,7 +135,7 @@ Ziyi Wang<sup>*</sup>, **Siva Rajesh Kasa**<sup>*</sup>, Ankith M S, Santhosh Ku
 
 ### CopRoute: Dependence Aware Conformal Routing for Language Models
 
-**Siva Rajesh Kasa**<sup>*</sup>, Santhosh Kumar Kasa<sup>*</sup>, Karan Gupta
+**Siva Rajesh Kasa**<sup>&ast;</sup>, Santhosh Kumar Kasa<sup>&ast;</sup>, Karan Gupta
 
 <div class="publication-links">
 <a href="https://arxiv.org/abs/2610.13276">Paper</a>
